@@ -24,6 +24,7 @@ class Global : Application() {
         fun getPreferenceFileKey(): String = "SharedPreferences"
 
         var tcpClient: TcpClient? = null
+        val connectTask = ConnectTask()
     }
 
     /**
@@ -33,9 +34,8 @@ class Global : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // TODO BB 2019-12-24. Test connection to TCP server.
-        val connectTask = ConnectTask()
-        connectTask.execute("")
+        // Test connection to TCP server.
+//        connectTask.execute("")
 
         // Send the message to the server
 //        tcpClient?.sendMessage("testing")

@@ -5,14 +5,28 @@ import android.util.Log
 import dk.birkb85.ceilingledclient.models.Global.Companion.tcpClient
 
 class ConnectTask : AsyncTask<String, String, TcpClient>() {
+    private var mMessageListener: TcpClient.OnMessageReceived? = null
+
     override fun doInBackground(vararg message: String): TcpClient? { //we create a TCPClient object
+        Log.d("DEBUG", "doInBackground start.")
+        if (message.size != 2) return null
+        val ip: String = message[0]
+        val port: Int = message[1].toInt()
+
+        Log.d("DEBUG", "doInBackground 1.")
+
         tcpClient = TcpClient(object : TcpClient.OnMessageReceived {
             //here the messageReceived method is implemented
             override fun messageReceived(message: String?) { //this method calls the onProgressUpdate
                 publishProgress(message)
             }
         })
-        tcpClient?.run()
+
+        Log.d("DEBUG", "doInBackground 2.")
+
+        tcpClient?.run(ip, port)
+
+        Log.d("DEBUG", "doInBackground end.")
         return null
     }
 
@@ -21,27 +35,11 @@ class ConnectTask : AsyncTask<String, String, TcpClient>() {
         //response received from server
         Log.d("DEBUG", "onProgressUpdate: response: " + values[0])
         //process server response here....
+        mMessageListener?.messageReceived(values[0])
+    }
+
+    fun setOnMessageReceivedListener(listener: TcpClient.OnMessageReceived)
+    {
+        mMessageListener = listener
     }
 }
-
-//private class Test : AsyncTask<String, String, TcpClient>() {
-//    override fun doInBackground(vararg urls: URL): Long {
-//        val count = urls.size
-//        var totalSize: Long = 0
-//        for (i in 0 until count) {
-//            totalSize += Downloader.downloadFile(urls[i])
-//            publishProgress((i / count.toFloat() * 100).toInt())
-//            // Escape early if cancel() is called
-//            if (isCancelled) break
-//        }
-//        return totalSize
-//    }
-//
-//    protected override fun onProgressUpdate(vararg progress: Int) {
-//        setProgressPercent(progress[0])
-//    }
-//
-//    override fun onPostExecute(result: Long) {
-//        JColorChooser.showDialog("Downloaded $result bytes")
-//    }
-//}
