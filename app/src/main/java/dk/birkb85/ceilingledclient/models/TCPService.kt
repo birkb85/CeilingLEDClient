@@ -9,10 +9,15 @@ import java.io.*
 import java.lang.Exception
 import java.net.InetSocketAddress
 import java.net.Socket
-import java.util.*
 
+// Brug en service, eller bare en normal baggrundstråd, da en AsyncTask kun kan køres en gang og ikke er lavet til at køre i lang tid.
+// Dette vil også være med til at tråden kan lukkes ordentligt.
+// Læs om services her:
+// https://stackoverflow.com/questions/15671207/tcp-socket-connection-as-a-service
+// https://developer.android.com/guide/components/bound-services.html#Binder
+// https://web.archive.org/web/20121103125621/http://myandroidsolutions.blogspot.com/2012/07/android-tcp-connection-tutorial.html
 class TCPService : Service() {
-    private val mBinder = LocalBinder() // Binder given to clients
+    private val mBinder = TCPBinder() // Binder given to clients
 
     private var mServerMessage: String? = null // message to send to the server
     private var mOnMessageReceived: OnMessageReceived? = null // sends message received notifications
@@ -24,8 +29,12 @@ class TCPService : Service() {
     private var mSocket: Socket? = null
     private var mStatus: Status = Status.DISCONNECTED
 
-    val status: Status
-        get() = mStatus
+//    val status: Status
+//        get() = mStatus
+
+    fun getStatus(): Status = mStatus
+
+    fun getTCPService(): TCPService = this@TCPService // TODO Testing
 
     fun setOnMessageReceivedListener(onMessageReceived: OnMessageReceived) {
         mOnMessageReceived = onMessageReceived
@@ -38,7 +47,6 @@ class TCPService : Service() {
             mOnMessageReceived?.statusChanged(status)
     }
 
-    // TODO BB 2019-12-29. Run in background. Decide on how to provide host and port. Restart connection if it disconnects.
     fun startClient(ip: String, port: Int) {
         mRun = true
         mSocketAddress = InetSocketAddress(ip, port)
@@ -46,7 +54,7 @@ class TCPService : Service() {
     }
 
     private fun clientThread() {
-        try {
+        try { // TODO BB 2019-12-31. Maybe remove this try...
             Thread(Runnable {
                 while (mRun) {
                     try {
@@ -135,25 +143,9 @@ class TCPService : Service() {
         thread.start()
     }
 
-//    fun backgroundThread() {
-//        // Testing background thread.
-//        try {
-//            val thread = Thread(Runnable {
-//                while (true) {
-//                    Log.d("DEBUG", "Running in background")
-//                    Thread.sleep(1000)
-//                }
-//            }).start()
-//        }
-//        catch (e: Exception) {
-//            Log.e("DEBUG", "LocalService: thread error", e)
-//        }
-//    }
-
-//    init {
-//        backgroundThread()
-//    }
-
+    /**
+     * Status of service.
+     */
     enum class Status {
         CONNECTING,
         CONNECTED,
@@ -162,6 +154,9 @@ class TCPService : Service() {
         DISCONNECTED
     }
 
+    /**
+     * Listen for service updates.
+     */
     interface OnMessageReceived {
         fun statusChanged(status: Status)
         fun messageReceived(message: String?)
@@ -171,7 +166,7 @@ class TCPService : Service() {
      * Class used for the client Binder.  Because we know this service always
      * runs in the same process as its clients, we don't need to deal with IPC.
      */
-    inner class LocalBinder : Binder() {
+    inner class TCPBinder : Binder() {
         // Return this instance of LocalService so clients can call public methods
         fun getService(): TCPService = this@TCPService
     }

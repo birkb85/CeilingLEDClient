@@ -1,81 +1,53 @@
 <resources>
-    <string name="app_name">CeilingLEDClient</string>
+    <string name="app_name">LED Client</string>
 
     <string name="demo_text">text</string>
-    <string name="demo_date">date</string>
+<!--    <string name="demo_date">date</string>-->
 
     <!-- Menus -->
-    <string name="menu_sync">Sync</string>
+    <string name="menu_settings">Indstillinger</string>
 
     <!-- Dialogs -->
-    <string name="dialog_title">BPR-IT</string>
+    <string name="dialog_title">Information</string>
     <string name="dialog_confirm_title">Bekræft venligst</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Annuller</string>
-    <string name="dialog_save">Gem</string>
-    <string name="dialog_error">Fejl:</string>
-    <string name="dialog_error304">Din oprettelse / opdatering blev ikke udført, prøv igen senere ellers kontakt support</string>
-    <string name="dialog_error400">Der mangler informationer til at kunne udføre forespørgsel, kontakt support</string>
-    <string name="dialog_error401">Du mangler rettigheder til at udføre denne funktion, prøv at logge ud af app og ind igen, ellers kontakt support</string>
-    <string name="dialog_error404">Ressourcen blev ikke fundet, prøv at logge ud af app og ind igen, ellers kontakt support</string>
-    <string name="dialog_error500">Der opstod en fejl på webserveren, prøv igen lidt senere, ellers kontakt support</string>
-    <string name="dialog_error503">Webserveren fik timeout, prøv igen lidt senere, ellers kontakt support</string>
-    <string name="dialog_errorNoAddressAssociatedWithHostName">Kontroller venligst at enheden har forbindelse til internettet</string>
-    <string name="dialog_errorDefault">Ukendt fejl prøv at lukke app\'en og starte den op på ny</string>
+<!--    <string name="dialog_save">Gem</string>-->
+<!--    <string name="dialog_error">Fejl:</string>-->
+<!--    <string name="dialog_error304">Din oprettelse / opdatering blev ikke udført, prøv igen senere ellers kontakt support</string>-->
+<!--    <string name="dialog_error400">Der mangler informationer til at kunne udføre forespørgsel, kontakt support</string>-->
+<!--    <string name="dialog_error401">Du mangler rettigheder til at udføre denne funktion, prøv at logge ud af app og ind igen, ellers kontakt support</string>-->
+<!--    <string name="dialog_error404">Ressourcen blev ikke fundet, prøv at logge ud af app og ind igen, ellers kontakt support</string>-->
+<!--    <string name="dialog_error500">Der opstod en fejl på webserveren, prøv igen lidt senere, ellers kontakt support</string>-->
+<!--    <string name="dialog_error503">Webserveren fik timeout, prøv igen lidt senere, ellers kontakt support</string>-->
+<!--    <string name="dialog_errorNoAddressAssociatedWithHostName">Kontroller venligst at enheden har forbindelse til internettet</string>-->
+<!--    <string name="dialog_errorDefault">Ukendt fejl prøv at lukke app\'en og starte den op på ny</string>-->
 
     <!-- Dialog Loading -->
     <string name="dialog_loading_pleaseWait">Vent venligst&#8230;</string>
-    <string name="dialog_loading_login">Logger ind</string>
-    <string name="dialog_loading_logout">Logger ud</string>
-    <string name="dialog_loading_getComponentTypes">Henter komponenttyper</string>
-    <string name="dialog_loading_getComponents">Henter komponenter</string>
-    <string name="dialog_loading_synchronizeData">Synkroniserer data</string>
+<!--    <string name="dialog_loading_login">Logger ind</string>-->
+<!--    <string name="dialog_loading_logout">Logger ud</string>-->
+<!--    <string name="dialog_loading_getComponentTypes">Henter komponenttyper</string>-->
+<!--    <string name="dialog_loading_getComponents">Henter komponenter</string>-->
+<!--    <string name="dialog_loading_synchronizeData">Synkroniserer data</string>-->
 
-    <!-- Login -->
-    <string name="login_title">BPR-IT - Login</string>
-    <string name="login_logo">BPR-IT logo</string>
-    <string name="login_signIn">Log ind</string>
-    <string name="login_signOut">Log ud</string>
-    <string name="login_signInOffline">Log ind - offline</string>
-    <string name="login_menu">Gå til menu</string>
-    <string name="login_version">version:</string>
-    <string name="login_notConnectedToInternet">Tilslut enheden til internettet for at logge ind</string>
+    <!-- Connection Status -->
+    <string name="status_connecting">Forbinder</string>
+    <string name="status_connected">Forbundet</string>
+    <string name="status_reconnecting">Forbinder igen</string>
+    <string name="status_disconnecting">Lukker forbindelse</string>
+    <string name="status_disconnected">Ikke forbundet</string>
 
-    <!-- Menu -->
-    <string name="menu_title">BPR-IT - Menu</string>
-    <string name="menu_tasks">Opgaver</string>
-    <string name="menu_components">Komponenter</string>
-
-    <!-- Task List -->
-    <string name="taskList_title">BPR-IT - Opgaver</string>
-    <string name="taskList_filter">Søg</string>
-
-    <!-- Task Details -->
-    <string name="taskDetails_title">BPR-IT - Opgavedetaljer</string>
-
-    <!-- Component Type List -->
-    <string name="componentTypeList_title">BPR-IT - Komponenttyper</string>
-    <string name="componentTypeList_filter">Søg</string>
-    <string name="componentTypeList_name">Type:</string>
-    <string name="componentTypeList_inStorage">Antal:</string>
-    <string name="componentTypeList_synchronizeBeforeReloadData">Synkroniser data før liste kan opdateres</string>
-    <string name="componentTypeList_notConnectedToInternet">Tilslut enhed til internettet for at opdatere liste</string>
-
-    <!-- Component List -->
-    <string name="componentList_title">BPR-IT - Komponenter</string>
-    <string name="componentList_filter">Søg</string>
-    <string name="componentList_serial">Serienummer:</string>
-    <string name="componentList_synchronizeBeforeReloadData">Synkroniser data før liste kan opdateres</string>
-    <string name="componentList_notConnectedToInternet">Tilslut enhed til internettet for at opdatere liste</string>
-
-    <!-- Component Details -->
-    <string name="componentDetails_title">BPR-IT - Komponentdetaljer</string>
-    <string name="componentDetails_delete">Slet</string>
-    <string name="componentDetails_serial">Serienummer:</string>
-    <string name="componentDetails_type">Type:</string>
-    <string name="componentDetails_created">Oprettet d.:</string>
-    <string name="componentDetails_modified">Sidst ændret d.:</string>
-    <string name="componentDetails_componentWillBeRemoved">Komponent vil blive slettet</string>
-    <string name="componentDetails_notConnectedToInternet">Tilslut enheden til internettet for at synkronisere</string>
+    <!-- Connection Activity -->
+    <string name="connection_connection">Forbindelse</string>
+    <string name="connection_status">Status:</string>
+    <string name="connection_ip">Server ip</string>
+    <string name="connection_port">Server port</string>
+    <string name="connection_connect">Forbind til server</string>
+    <string name="connection_disconnect">Luk forbindelse</string>
+    <string name="connection_sendMessage">Send besked</string>
+    <string name="connection_message">Besked</string>
+    <string name="connection_send">Send</string>
+    <string name="connection_time">Tid for send og modtag:</string>
 
 </resources>

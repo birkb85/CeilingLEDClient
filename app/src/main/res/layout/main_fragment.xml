@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,81 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:orientation="vertical">
+        android:text="MainFragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            style="@style/textMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Forbindelse" />
-
-        <TextView
-            android:id="@+id/statusTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Status: " />
-
-        <EditText
-            android:id="@+id/ipEditText"
-            style="@style/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Server ip" />
-
-        <EditText
-            android:id="@+id/portEditText"
-            style="@style/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Server port" />
-
-        <Button
-            android:id="@+id/connectButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Forbind til server" />
-
-        <Button
-            android:id="@+id/disconnectButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Luk forbindelse" />
-
-        <TextView
-            style="@style/textMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Send besked" />
-
-        <EditText
-            android:id="@+id/messageEditText"
-            style="@style/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Besked" />
-
-        <Button
-            android:id="@+id/messageButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Send besked" />
-
-        <TextView
-            android:id="@+id/timeTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tid for send/modtag: " />
-
-        <TextView
-            android:id="@+id/messageTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

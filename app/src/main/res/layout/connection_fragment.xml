@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/connection"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.connection.ConnectionFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/textMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/connection_connection" />
+
+        <TextView
+            android:id="@+id/statusTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/connection_status" />
+
+        <EditText
+            android:id="@+id/ipEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/connection_ip"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/portEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/connection_port"
+            android:inputType="text"/>
+
+        <Button
+            android:id="@+id/connectButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/connection_connect" />
+
+        <Button
+            android:id="@+id/disconnectButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/connection_disconnect" />
+
+        <TextView
+            style="@style/textMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/connection_sendMessage" />
+
+        <EditText
+            android:id="@+id/messageEditText"
+            style="@style/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/connection_message"
+            android:inputType="text"/>
+
+        <Button
+            android:id="@+id/messageButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/connection_send" />
+
+        <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/connection_time" />
+
+        <TextView
+            android:id="@+id/messageTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</ScrollView>
