@@ -12,92 +12,85 @@ import java.net.Socket
 import java.util.*
 
 class TCPService : Service() {
-    private val binder = LocalBinder() // Binder given to clients
+    private val mBinder = LocalBinder() // Binder given to clients
 
     private var mServerMessage: String? = null // message to send to the server
-    private var mMessageListener: OnMessageReceived? = null // sends message received notifications
-    private var mClientRun = false // Run client
+    private var mOnMessageReceived: OnMessageReceived? = null // sends message received notifications
     private var mRun = false // while this is true, the server will continue running (reading)
     private var mBufferOut: PrintWriter? = null // used to send messages
     private var mBufferIn: BufferedReader? = null // used to read messages from the server
 
-    private var socketAddress: InetSocketAddress? = null
-    private var socket: Socket? = null
-    private var connected = false
+    private var mSocketAddress: InetSocketAddress? = null
+    private var mSocket: Socket? = null
+    private var mStatus: Status = Status.DISCONNECTED
 
-    private val generator = Random() // Random number generator
+    val status: Status
+        get() = mStatus
 
-    /** method for clients  */
-    val randomNumber: Int
-        get() = generator.nextInt(100)
+    fun setOnMessageReceivedListener(onMessageReceived: OnMessageReceived) {
+        mOnMessageReceived = onMessageReceived
+    }
 
-    val isConnected: Boolean
-        get() = connected
+    private fun setStatus(status: Status) {
+        Log.d("DEBUG", "TCPService setStatus: $status")
+        mStatus = status
+        if (mOnMessageReceived != null)
+            mOnMessageReceived?.statusChanged(status)
+    }
 
     // TODO BB 2019-12-29. Run in background. Decide on how to provide host and port. Restart connection if it disconnects.
     fun startClient(ip: String, port: Int) {
-        mClientRun = true
         mRun = true
-        socketAddress = InetSocketAddress(ip, port)
+        mSocketAddress = InetSocketAddress(ip, port)
         clientThread()
     }
 
     private fun clientThread() {
         try {
             Thread(Runnable {
-                while (mClientRun) {
+                while (mRun) {
                     try {
                         //create a socket to make the connection with the server
-                        socket = Socket()
-                        Log.d("DEBUG", "TCP Client: Connecting...")
-                        socket?.connect(socketAddress, 10000)
-                        Log.d("DEBUG", "TCP Client: Connected")
-                        if (mMessageListener != null) {
-                            connected = true
-                            mMessageListener?.connected()
-                        }
+                        setStatus(Status.CONNECTING)
+                        mSocket = Socket()
+                        mSocket?.connect(mSocketAddress, 10000)
+                        setStatus(Status.CONNECTED)
                         try {
                             //sends the message to the server
                             mBufferOut = PrintWriter(
-                                BufferedWriter(OutputStreamWriter(socket?.getOutputStream())),
+                                BufferedWriter(OutputStreamWriter(mSocket?.getOutputStream())),
                                 true
                             )
                             //receives the message which the server sends back
-                            mBufferIn = BufferedReader(InputStreamReader(socket?.getInputStream()))
+                            mBufferIn = BufferedReader(InputStreamReader(mSocket?.getInputStream()))
                             //in this while the client listens for the messages sent by the server
                             while (mRun) {
-                                Log.d("DEBUG", "Reading line start.")
                                 mServerMessage = mBufferIn?.readLine()
-                                Log.d("DEBUG", "Reading line end.")
-                                if (mServerMessage != null && mMessageListener != null) { //call the method messageReceived from MyActivity class
-                                    mMessageListener?.messageReceived(mServerMessage)
+                                if (mServerMessage != null && mOnMessageReceived != null) { //call the method messageReceived from MyActivity class
+                                    mOnMessageReceived?.messageReceived(mServerMessage)
                                 }
                             }
-                            Log.d(
-                                "DEBUG",
-                                "RESPONSE FROM SERVER: S: Received Message: '$mServerMessage'"
-                            )
                         } catch (e: Exception) {
-                            Log.e("DEBUG", "TCPService: ClientThread: Socket connected: error", e)
+                            Log.e("DEBUG", "TCPService error: ", e)
                         } finally {
                             //the socket must be closed. It is not possible to reconnect to this socket
                             // after it is closed, which means a new socket instance has to be created.
-                            socket?.close()
-                            if (mMessageListener != null) {
-                                connected = false
-                                mMessageListener?.disconnected()
-                            }
+                            mSocket?.close()
                         }
                     }
                     catch (e: Exception) {
-                        Log.e("DEBUG", "TCPService: ClientThread: Socket cannot connect: error", e)
+                        Log.e("DEBUG", "TCPService error: ", e)
                     }
 
-                    Thread.sleep(5000)
+                    if (mRun) {
+                        setStatus(Status.RECONNECTING)
+                        Thread.sleep(5000)
+                    }
                 }
+                setStatus(Status.DISCONNECTED)
             }).start()
         } catch (e: Exception) {
-            Log.e("DEBUG", "TCPService: ClientThread: error", e)
+            Log.e("DEBUG", "TCPService error: ", e)
         }
     }
 
@@ -105,11 +98,11 @@ class TCPService : Service() {
      * Close the connection and release the members
      */
     fun stopClient() {
-        mClientRun = false
+        setStatus(Status.DISCONNECTING)
         mRun = false
-        if (socket != null) {
-            socket?.close()
-            socket = null
+        if (mSocket != null) {
+            mSocket?.close()
+            mSocket = null
         }
         if (mBufferOut != null) {
             mBufferOut?.flush()
@@ -120,7 +113,6 @@ class TCPService : Service() {
             mBufferIn?.close()
             mBufferIn = null
         }
-        mMessageListener = null
         mServerMessage = null
     }
 
@@ -162,14 +154,16 @@ class TCPService : Service() {
 //        backgroundThread()
 //    }
 
-    fun setOnMessageReceivedListener(listener: TCPService.OnMessageReceived)
-    {
-        mMessageListener = listener
+    enum class Status {
+        CONNECTING,
+        CONNECTED,
+        RECONNECTING,
+        DISCONNECTING,
+        DISCONNECTED
     }
 
     interface OnMessageReceived {
-        fun connected()
-        fun disconnected()
+        fun statusChanged(status: Status)
         fun messageReceived(message: String?)
     }
 
@@ -183,6 +177,6 @@ class TCPService : Service() {
     }
 
     override fun onBind(intent: Intent): IBinder {
-        return binder
+        return mBinder
     }
 }

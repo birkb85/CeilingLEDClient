@@ -6,24 +6,20 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import dk.birkb85.ceilingledclient.R
-import dk.birkb85.ceilingledclient.models.Global.Companion.connectTask
 import dk.birkb85.ceilingledclient.models.TCPService
-import dk.birkb85.ceilingledclient.models.TcpClient
-
 
 class MainFragment : Fragment() {
 
+    private var statusTextView: TextView? = null
     private var ipEditText: EditText? = null
     private var portEditText: EditText? = null
     private var connectButton: Button? = null
@@ -62,16 +58,8 @@ class MainFragment : Fragment() {
     }
 
     fun onServiceBind() {
-//        if (tcpService.isConnected) {
-//            connectButton?.isEnabled = false
-//            disconnectButton?.isEnabled = true
-//            messageButton?.isEnabled = true
-//        }
-//        else {
-//            connectButton?.isEnabled = true
-//            disconnectButton?.isEnabled = false
-//            messageButton?.isEnabled = false
-//        }
+
+        onStatusChanged(tcpService.status)
 
         // Brug en service, eller bare en normal baggrundstråd, da en AsyncTask kun kan køres en gang og ikke er lavet til at køre i lang tid.
         // Dette vil også være med til at tråden kan lukkes ordentligt.
@@ -113,24 +101,70 @@ class MainFragment : Fragment() {
         }
 
         tcpService.setOnMessageReceivedListener(object : TCPService.OnMessageReceived {
-            override fun connected() {
-                connectButton?.isEnabled = false
-                disconnectButton?.isEnabled = true
-                messageButton?.isEnabled = true
-            }
-
-            override fun disconnected() {
-                connectButton?.isEnabled = true
-                disconnectButton?.isEnabled = false
-                messageButton?.isEnabled = false
+            override fun statusChanged(status: TCPService.Status) {
+                activity?.runOnUiThread(Runnable {
+                    onStatusChanged(status)
+                })
             }
 
             override fun messageReceived(message: String?) {
                 val time = System.currentTimeMillis() - timestamp
-                timeTextView?.text = "Tid for send/modtag: $time millis"
-                messageTextView?.text = messageTextView?.text.toString() + message
+                activity?.runOnUiThread(Runnable {
+                    timeTextView?.text = "Tid for send/modtag: $time millis"
+                    messageTextView?.text = messageTextView?.text.toString() + message
+                })
             }
         })
+    }
+
+    private fun onStatusChanged(status: TCPService.Status) {
+        when(status) {
+            TCPService.Status.CONNECTING -> {
+                statusTextView?.text = "Status: Forbinder"
+                ipEditText?.isEnabled = false
+                portEditText?.isEnabled = false
+                connectButton?.isEnabled = false
+                disconnectButton?.isEnabled = true
+                messageEditText?.isEnabled = false
+                messageButton?.isEnabled = false
+            }
+            TCPService.Status.CONNECTED -> {
+                statusTextView?.text = "Status: Forbundet"
+                ipEditText?.isEnabled = false
+                portEditText?.isEnabled = false
+                connectButton?.isEnabled = false
+                disconnectButton?.isEnabled = true
+                messageEditText?.isEnabled = true
+                messageButton?.isEnabled = true
+            }
+            TCPService.Status.RECONNECTING -> {
+                statusTextView?.text = "Status: Forbinder igen"
+                ipEditText?.isEnabled = false
+                portEditText?.isEnabled = false
+                connectButton?.isEnabled = false
+                disconnectButton?.isEnabled = true
+                messageEditText?.isEnabled = false
+                messageButton?.isEnabled = false
+            }
+            TCPService.Status.DISCONNECTING -> {
+                statusTextView?.text = "Status: Lukker forbindelse"
+                ipEditText?.isEnabled = false
+                portEditText?.isEnabled = false
+                connectButton?.isEnabled = false
+                disconnectButton?.isEnabled = false
+                messageEditText?.isEnabled = false
+                messageButton?.isEnabled = false
+            }
+            TCPService.Status.DISCONNECTED -> {
+                statusTextView?.text = "Status: Ikke forbundet"
+                ipEditText?.isEnabled = true
+                portEditText?.isEnabled = true
+                connectButton?.isEnabled = true
+                disconnectButton?.isEnabled = false
+                messageEditText?.isEnabled = false
+                messageButton?.isEnabled = false
+            }
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -144,6 +178,7 @@ class MainFragment : Fragment() {
         // TODO: Use the ViewModel
 
         // Set views
+        statusTextView = activity?.findViewById(R.id.statusTextView)
         ipEditText = activity?.findViewById(R.id.ipEditText)
         portEditText = activity?.findViewById(R.id.portEditText)
         connectButton = activity?.findViewById(R.id.connectButton)
@@ -157,8 +192,11 @@ class MainFragment : Fragment() {
         portEditText?.setText("333")
         messageEditText?.setText("Test")
 
+        ipEditText?.isEnabled = false
+        portEditText?.isEnabled = false
         connectButton?.isEnabled = false
         disconnectButton?.isEnabled = false
+        messageEditText?.isEnabled = false
         messageButton?.isEnabled = false
 
 //        connectTask.setOnMessageReceivedListener(object : TcpClient.OnMessageReceived {
