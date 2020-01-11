@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -55,6 +56,8 @@ class ConnectionSetupFragment : Fragment() {
         timeTextView = activity?.findViewById(R.id.timeTextView)
         messageTextView = activity?.findViewById(R.id.messageTextView)
 
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
+
         val sharedPref = activity?.getSharedPreferences(Global.preferenceFileKey, Context.MODE_PRIVATE)
 
         val connectionIP = sharedPref?.getString("connection_ip", "")
@@ -62,6 +65,7 @@ class ConnectionSetupFragment : Fragment() {
             ipEditText?.setText(connectionIP)
         else
             ipEditText?.setText(getString(R.string.connection_defaultIP))
+        ipEditText?.setSelection(ipEditText?.text.toString().length)
 
         val connectionPort = sharedPref?.getInt("connection_port", 0)
         if (connectionPort != null && connectionPort != 0)

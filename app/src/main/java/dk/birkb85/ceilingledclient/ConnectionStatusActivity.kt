@@ -3,6 +3,7 @@ package dk.birkb85.ceilingledclient
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
+import dk.birkb85.ceilingledclient.models.Global
 import dk.birkb85.ceilingledclient.ui.connectionSetup.ConnectionSetupFragment
 
 class ConnectionStatusActivity : AppCompatActivity() {
