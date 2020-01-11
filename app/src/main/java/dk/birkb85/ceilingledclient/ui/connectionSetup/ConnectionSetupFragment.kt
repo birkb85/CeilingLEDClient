@@ -1,7 +1,8 @@
-package dk.birkb85.ceilingledclient.ui.connection
+package dk.birkb85.ceilingledclient.ui.connectionSetup
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,7 @@ import dk.birkb85.ceilingledclient.R
 import dk.birkb85.ceilingledclient.models.Global
 import dk.birkb85.ceilingledclient.models.TCPConnection
 
-class ConnectionFragment : Fragment() {
+class ConnectionSetupFragment : Fragment() {
     private var statusTextView: TextView? = null
     private var ipEditText: EditText? = null
     private var portEditText: EditText? = null
@@ -28,19 +29,20 @@ class ConnectionFragment : Fragment() {
     private var timestamp: Long = 0
 
     companion object {
-        fun newInstance() = ConnectionFragment()
+        fun newInstance() = ConnectionSetupFragment()
     }
 
-    private lateinit var viewModel: ConnectionViewModel
+    private lateinit var viewModel: ConnectionSetupViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.connection_fragment, container, false)
+        return inflater.inflate(R.layout.connection_setup_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ConnectionViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(ConnectionSetupViewModel::class.java)
+        // TODO: Use the ViewModel
 
         // Set views
         statusTextView = activity?.findViewById(R.id.statusTextView)
@@ -88,6 +90,8 @@ class ConnectionFragment : Fragment() {
     }
 
     private fun bindTCP() {
+        Log.d("DEBUG", "ConnectionSetup bindTCP")
+
         onStatusChanged(Global.tcpConnection.getStatus())
 
         connectButton?.setOnClickListener {
@@ -98,7 +102,8 @@ class ConnectionFragment : Fragment() {
             sharedPrefEdit?.putString("connection_ip", ip)
             sharedPrefEdit?.putInt("connection_port", port)
             sharedPrefEdit?.apply()
-            Global.tcpConnection.startClient(ip, port)
+            if (ip != "" && port != 0)
+                Global.tcpConnection.startClient(ip, port)
         }
 
         disconnectButton?.setOnClickListener {
@@ -107,7 +112,7 @@ class ConnectionFragment : Fragment() {
 
         messageButton?.setOnClickListener {
             timestamp = System.currentTimeMillis()
-            timeTextView?.text = getText(R.string.connection_time)
+            timeTextView?.text = getText(R.string.connectionSetup_time)
             messageTextView?.text = ""
 
             Global.tcpConnection.sendMessage(messageEditText?.text.toString())
@@ -117,6 +122,7 @@ class ConnectionFragment : Fragment() {
     }
 
     private fun unbindTCP() {
+        Log.d("DEBUG", "ConnectionSetup unbindTCP")
         connectButton?.setOnClickListener(null)
         disconnectButton?.setOnClickListener(null)
         messageButton?.setOnClickListener(null)
@@ -133,7 +139,7 @@ class ConnectionFragment : Fragment() {
         override fun messageReceived(message: String?) {
             val time = System.currentTimeMillis() - timestamp
             activity?.runOnUiThread(Runnable {
-                val timeText = getText(R.string.connection_time).toString() + " " + time + " ms"
+                val timeText = getText(R.string.connectionSetup_time).toString() + " " + time + " ms"
                 timeTextView?.text = timeText
                 val messageText = messageTextView?.text.toString() + message
                 messageTextView?.text = messageText
@@ -144,7 +150,7 @@ class ConnectionFragment : Fragment() {
     private fun onStatusChanged(status: TCPConnection.Status) {
         when(status) {
             TCPConnection.Status.CONNECTING -> {
-                val statusText = getString(R.string.connection_status) + " " + getText(R.string.status_connecting)
+                val statusText = getString(R.string.connectionSetup_status) + " " + getText(R.string.status_connecting)
                 statusTextView?.text =  statusText
                 ipEditText?.isEnabled = false
                 portEditText?.isEnabled = false
@@ -154,7 +160,7 @@ class ConnectionFragment : Fragment() {
                 messageButton?.isEnabled = false
             }
             TCPConnection.Status.CONNECTED -> {
-                val statusText = getString(R.string.connection_status) + " " + getText(R.string.status_connected)
+                val statusText = getString(R.string.connectionSetup_status) + " " + getText(R.string.status_connected)
                 statusTextView?.text =  statusText
                 ipEditText?.isEnabled = false
                 portEditText?.isEnabled = false
@@ -164,7 +170,7 @@ class ConnectionFragment : Fragment() {
                 messageButton?.isEnabled = true
             }
             TCPConnection.Status.RECONNECTING -> {
-                val statusText = getString(R.string.connection_status) + " " + getText(R.string.status_reconnecting) + " (" + Global.tcpConnection.getRetryCount() + "/" + Global.tcpConnection.getRetryCountMax() + ")"
+                val statusText = getString(R.string.connectionSetup_status) + " " + getText(R.string.status_reconnecting) + " (" + Global.tcpConnection.getRetryCount() + "/" + Global.tcpConnection.getRetryCountMax() + ")"
                 statusTextView?.text =  statusText
                 ipEditText?.isEnabled = false
                 portEditText?.isEnabled = false
@@ -174,7 +180,7 @@ class ConnectionFragment : Fragment() {
                 messageButton?.isEnabled = false
             }
             TCPConnection.Status.DISCONNECTING -> {
-                val statusText = getString(R.string.connection_status) + " " + getText(R.string.status_disconnecting)
+                val statusText = getString(R.string.connectionSetup_status) + " " + getText(R.string.status_disconnecting)
                 statusTextView?.text =  statusText
                 ipEditText?.isEnabled = false
                 portEditText?.isEnabled = false
@@ -184,7 +190,7 @@ class ConnectionFragment : Fragment() {
                 messageButton?.isEnabled = false
             }
             TCPConnection.Status.DISCONNECTED -> {
-                val statusText = getString(R.string.connection_status) + " " + getText(R.string.status_disconnected)
+                val statusText = getString(R.string.connectionSetup_status) + " " + getText(R.string.status_disconnected)
                 statusTextView?.text =  statusText
                 ipEditText?.isEnabled = true
                 portEditText?.isEnabled = true

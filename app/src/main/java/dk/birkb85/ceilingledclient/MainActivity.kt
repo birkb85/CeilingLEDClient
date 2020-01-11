@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Menu
-import dk.birkb85.ceilingledclient.ui.connection.ConnectionFragment
+import dk.birkb85.ceilingledclient.ui.connectionStatus.ConnectionStatusFragment
 import dk.birkb85.ceilingledclient.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
@@ -13,17 +13,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.main_container, MainFragment.newInstance())
-//                .commitNow()
-//
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.connection_container, ConnectionFragment.newInstance())
-//                .commitNow()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container_connectionStatus, ConnectionStatusFragment.newInstance())
+                .commitNow()
 
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
+                .replace(R.id.container_main, MainFragment.newInstance())
                 .commitNow()
+
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, MainFragment.newInstance())
+//                .commitNow()
         }
     }
 
@@ -44,14 +44,14 @@ class MainActivity : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
-    /**
-     * Method called when options menu is created.
-     * @param menu the menu instance object created.
-     * @return true if menu is created
-     */
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
+//    /**
+//     * Method called when options menu is created.
+//     * @param menu the menu instance object created.
+//     * @return true if menu is created
+//     */
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        menuInflater.inflate(R.menu.menu_main, menu)
+//        return true
+//    }
 }

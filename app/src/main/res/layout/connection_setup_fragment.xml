@@ -2,10 +2,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/connection"
+    android:id="@+id/connectionSetup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.connection.ConnectionFragment">
+    tools:context=".ui.connectionSetup.ConnectionSetupFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,20 +20,20 @@
             style="@style/textMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/connection_connection" />
+            android:text="@string/connectionSetup_connection" />
 
         <TextView
             android:id="@+id/statusTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/connection_status" />
+            android:text="@string/connectionSetup_status" />
 
         <EditText
             android:id="@+id/ipEditText"
             style="@style/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/connection_ip"
+            android:hint="@string/connectionSetup_ip"
             android:inputType="text" />
 
         <EditText
@@ -41,46 +41,46 @@
             style="@style/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/connection_port"
+            android:hint="@string/connectionSetup_port"
             android:inputType="text"/>
 
         <Button
             android:id="@+id/connectButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/connection_connect" />
+            android:text="@string/connectionSetup_connect" />
 
         <Button
             android:id="@+id/disconnectButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/connection_disconnect" />
+            android:text="@string/connectionSetup_disconnect" />
 
         <TextView
             style="@style/textMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/connection_sendMessage" />
+            android:text="@string/connectionSetup_sendMessage" />
 
         <EditText
             android:id="@+id/messageEditText"
             style="@style/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/connection_message"
+            android:hint="@string/connectionSetup_message"
             android:inputType="text"/>
 
         <Button
             android:id="@+id/messageButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/connection_send" />
+            android:text="@string/connectionSetup_send" />
 
         <TextView
             android:id="@+id/timeTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/connection_time" />
+            android:text="@string/connectionSetup_time" />
 
         <TextView
             android:id="@+id/messageTextView"

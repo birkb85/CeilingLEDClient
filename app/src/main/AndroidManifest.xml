@@ -21,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ConnectionActivity" />
+        <activity android:name=".ConnectionSetupActivity" />
+        <activity android:name=".ConnectionStatusActivity" />
         <service android:name=".models.TCPServiceExample" />
     </application>
 

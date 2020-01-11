@@ -36,23 +36,28 @@
     <string name="connection_defaultPort">333</string>
     <string name="connection_defaultText">Test</string>
 
-    <!-- Connection Status -->
+    <!-- TCP Connection Status -->
     <string name="status_connecting">Forbinder</string>
     <string name="status_connected">Forbundet</string>
     <string name="status_reconnecting">Forbinder igen</string>
     <string name="status_disconnecting">Lukker forbindelse</string>
     <string name="status_disconnected">Ikke forbundet</string>
 
-    <!-- Connection Activity -->
-    <string name="connection_connection">Forbindelse</string>
-    <string name="connection_status">Status:</string>
-    <string name="connection_ip">Server ip</string>
-    <string name="connection_port">Server port</string>
-    <string name="connection_connect">Forbind til server</string>
-    <string name="connection_disconnect">Luk forbindelse</string>
-    <string name="connection_sendMessage">Send besked</string>
-    <string name="connection_message">Besked</string>
-    <string name="connection_send">Send</string>
-    <string name="connection_time">Tid for send og modtag:</string>
+    <!-- Connection Setup Activity -->
+    <string name="connectionSetup_connection">Forbindelse</string>
+    <string name="connectionSetup_status">Status:</string>
+    <string name="connectionSetup_ip">Server ip</string>
+    <string name="connectionSetup_port">Server port</string>
+    <string name="connectionSetup_connect">Forbind til server</string>
+    <string name="connectionSetup_disconnect">Luk forbindelse</string>
+    <string name="connectionSetup_sendMessage">Send besked</string>
+    <string name="connectionSetup_message">Besked</string>
+    <string name="connectionSetup_send">Send</string>
+    <string name="connectionSetup_time">Tid for send og modtag:</string>
+
+    <!-- Connection Status Activity -->
+    <string name="connectionStatus_status">Status:</string>
+    <string name="connectionStatus_connect">Forbind</string>
+    <string name="connectionStatus_setup">Opsætning</string>
 
 </resources>

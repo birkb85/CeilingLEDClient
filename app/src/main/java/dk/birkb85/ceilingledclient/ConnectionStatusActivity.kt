@@ -3,16 +3,16 @@ package dk.birkb85.ceilingledclient
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
-import dk.birkb85.ceilingledclient.ui.connection.ConnectionFragment
+import dk.birkb85.ceilingledclient.ui.connectionSetup.ConnectionSetupFragment
 
-class ConnectionActivity : AppCompatActivity() {
+class ConnectionStatusActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.connection_activity)
+        setContentView(R.layout.connection_setup_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ConnectionFragment.newInstance())
+                .replace(R.id.container, ConnectionSetupFragment.newInstance())
                 .commitNow()
         }
     }

@@ -35,7 +35,7 @@ class Global : Application() {
         val sharedPref = getSharedPreferences(preferenceFileKey, Context.MODE_PRIVATE)
         val connectionIP = sharedPref.getString("connection_ip", "")
         val connectionPort = sharedPref.getInt("connection_port", 0)
-        if (connectionIP != null && connectionIP != "")
+        if (connectionIP != null && connectionIP != "" && connectionPort != 0)
             tcpConnection.startClient(connectionIP, connectionPort)
     }
 
@@ -47,7 +47,7 @@ class Global : Application() {
      * @return alert dialog.
      */
     fun getMessageAlertDialog(
-        context: Context,
+        context: Context?,
         message: String,
         onClickListener: AlertDialogButtonOnClickListener?
     ): AlertDialog {
@@ -82,7 +82,7 @@ class Global : Application() {
      * @return alert dialog.
      */
     fun getConfirmAlertDialog(
-        context: Context,
+        context: Context?,
         message: String,
         okOnClickListener: AlertDialogButtonOnClickListener?,
         cancelOnClickListener: AlertDialogButtonOnClickListener?

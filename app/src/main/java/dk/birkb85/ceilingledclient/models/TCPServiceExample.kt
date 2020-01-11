@@ -199,7 +199,7 @@ import androidx.lifecycle.ViewModelProviders
 import dk.birkb85.ceilingledclient.R
 import dk.birkb85.ceilingledclient.models.TCPServiceExample
 
-class ConnectionFragment : Fragment() {
+class ConnectionSetupFragment : Fragment() {
     private var statusTextView: TextView? = null
     private var ipEditText: EditText? = null
     private var portEditText: EditText? = null
@@ -217,10 +217,10 @@ class ConnectionFragment : Fragment() {
     private var serviceBound: Boolean = false
 
     companion object {
-        fun newInstance() = ConnectionFragment()
+        fun newInstance() = ConnectionSetupFragment()
     }
 
-    private lateinit var viewModel: ConnectionViewModel
+    private lateinit var viewModel: ConnectionStatusViewModel
 
     /** Defines callbacks for service binding, passed to bindService()  */
     private val connection = object : ServiceConnection {
@@ -351,12 +351,12 @@ class ConnectionFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.connection_fragment, container, false)
+        return inflater.inflate(R.layout.connection_setup_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ConnectionViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(ConnectionStatusViewModel::class.java)
 
         // Set views
         statusTextView = activity?.findViewById(R.id.statusTextView)
