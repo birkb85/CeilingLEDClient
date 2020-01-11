@@ -4,14 +4,9 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.Application
 import android.content.Context
-import android.content.Intent
-import android.os.AsyncTask
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import dk.birkb85.ceilingledclient.R
-import dk.birkb85.ceilingledclient.interfaces.AlertDialogButtonOnClickListener
-import dk.birkb85.ceilingledclient.models.Global.Companion.tcpClient
 
 
 /**
@@ -22,10 +17,12 @@ class Global : Application() {
         /**
          * Preference file key for saving to local preferences.
          */
-        fun getPreferenceFileKey(): String = "SharedPreferences"
+        const val preferenceFileKey: String = "SharedPreferences"
 
-        var tcpClient: TcpClient? = null
-        val connectTask = ConnectTask()
+        /**
+         * Global TCPConnection controlling TCP connection to Arduino.
+         */
+        val tcpConnection: TCPConnection = TCPConnection()
     }
 
     /**
@@ -35,14 +32,11 @@ class Global : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // Test connection to TCP server.
-//        connectTask.execute("")
-
-        // Send the message to the server
-//        tcpClient?.sendMessage("testing")
-
-        // Stop connection.
-//        tcpClient?.stopClient()
+        val sharedPref = getSharedPreferences(preferenceFileKey, Context.MODE_PRIVATE)
+        val connectionIP = sharedPref.getString("connection_ip", "")
+        val connectionPort = sharedPref.getInt("connection_port", 0)
+        if (connectionIP != null && connectionIP != "")
+            tcpConnection.startClient(connectionIP, connectionPort)
     }
 
     /**
@@ -119,5 +113,15 @@ class Global : Application() {
         }
 
         return alertDialog
+    }
+
+    /**
+     * On click listener callback.
+     */
+    interface AlertDialogButtonOnClickListener {
+        /**
+         * On click listener callback.
+         */
+        fun onClick()
     }
 }

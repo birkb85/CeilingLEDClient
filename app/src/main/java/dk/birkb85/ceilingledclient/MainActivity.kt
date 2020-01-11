@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Menu
+import dk.birkb85.ceilingledclient.ui.connection.ConnectionFragment
 import dk.birkb85.ceilingledclient.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
@@ -12,6 +13,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.main_container, MainFragment.newInstance())
+//                .commitNow()
+//
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.connection_container, ConnectionFragment.newInstance())
+//                .commitNow()
+
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, MainFragment.newInstance())
                 .commitNow()
