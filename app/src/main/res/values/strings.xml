@@ -31,6 +31,11 @@
 <!--    <string name="dialog_loading_getComponents">Henter komponenter</string>-->
 <!--    <string name="dialog_loading_synchronizeData">Synkroniserer data</string>-->
 
+    <!-- Dialog Pong -->
+    <string name="dialogPong_player1">Spiller 1</string>
+    <string name="dialogPong_player2">Spiller 2</string>
+    <string name="dialogPong_player12">Spiller 1 og 2</string>
+
     <!-- Connection Default -->
     <string name="connection_defaultIP">192.168.4.1</string>
     <string name="connection_defaultPort">333</string>
@@ -59,5 +64,8 @@
     <string name="connectionStatus_status">Status:</string>
     <string name="connectionStatus_connect">Forbind</string>
     <string name="connectionStatus_setup">Opsætning</string>
+
+    <!-- Main Activity -->
+    <string name="main_pong">Pong</string>
 
 </resources>

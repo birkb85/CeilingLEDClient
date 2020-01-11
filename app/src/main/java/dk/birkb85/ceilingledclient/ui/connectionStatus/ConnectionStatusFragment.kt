@@ -18,10 +18,10 @@ import dk.birkb85.ceilingledclient.models.Global
 import dk.birkb85.ceilingledclient.models.TCPConnection
 
 class ConnectionStatusFragment : Fragment() {
-    private var statusTextView: TextView? = null
-    private var actionsLinearLayout: LinearLayout? = null
-    private var setupButton: Button? = null
-    private var connectButton: Button? = null
+    private var mStatusTextView: TextView? = null
+    private var mActionsLinearLayout: LinearLayout? = null
+    private var mSetupButton: Button? = null
+    private var mConnectButton: Button? = null
 
     companion object {
         fun newInstance() = ConnectionStatusFragment()
@@ -37,17 +37,16 @@ class ConnectionStatusFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ConnectionStatusViewModel::class.java)
-        // TODO: Use the ViewModel
 
         // Set views
-        statusTextView = activity?.findViewById(R.id.statusTextView)
-        actionsLinearLayout = activity?.findViewById(R.id.actionsLinearLayout)
-        setupButton = activity?.findViewById(R.id.setupButton)
-        connectButton = activity?.findViewById(R.id.connectButton)
+        mStatusTextView = activity?.findViewById(R.id.statusTextView)
+        mActionsLinearLayout = activity?.findViewById(R.id.actionsLinearLayout)
+        mSetupButton = activity?.findViewById(R.id.setupButton)
+        mConnectButton = activity?.findViewById(R.id.connectButton)
 
-        actionsLinearLayout?.visibility = View.GONE
-        setupButton?.isEnabled = false
-        connectButton?.isEnabled = false
+        mActionsLinearLayout?.visibility = View.GONE
+        mSetupButton?.isEnabled = false
+        mConnectButton?.isEnabled = false
     }
 
     override fun onResume() {
@@ -65,11 +64,11 @@ class ConnectionStatusFragment : Fragment() {
 
         onStatusChanged(Global.tcpConnection.getStatus())
 
-        setupButton?.setOnClickListener {
+        mSetupButton?.setOnClickListener {
             connectionSetup()
         }
 
-        connectButton?.setOnClickListener {
+        mConnectButton?.setOnClickListener {
             val sharedPref = activity?.getSharedPreferences(Global.preferenceFileKey, Context.MODE_PRIVATE)
             val ip = sharedPref?.getString("connection_ip", "")
             val port = sharedPref?.getInt("connection_port", 0)
@@ -84,8 +83,8 @@ class ConnectionStatusFragment : Fragment() {
 
     private fun unbindTCP() {
         Log.d("DEBUG", "ConnectionStatus unbindTCP")
-        setupButton?.setOnClickListener(null)
-        connectButton?.setOnClickListener(null)
+        mSetupButton?.setOnClickListener(null)
+        mConnectButton?.setOnClickListener(null)
         Global.tcpConnection.setOnMessageReceivedListener(null)
     }
 
@@ -110,38 +109,38 @@ class ConnectionStatusFragment : Fragment() {
         when(status) {
             TCPConnection.Status.CONNECTING -> {
                 val statusText = getString(R.string.connectionStatus_status) + " " + getText(R.string.status_connecting)
-                statusTextView?.text =  statusText
-                actionsLinearLayout?.visibility = View.VISIBLE
-                setupButton?.isEnabled = true
-                connectButton?.isEnabled = false
+                mStatusTextView?.text =  statusText
+                mActionsLinearLayout?.visibility = View.VISIBLE
+                mSetupButton?.isEnabled = true
+                mConnectButton?.isEnabled = false
             }
             TCPConnection.Status.CONNECTED -> {
                 val statusText = getString(R.string.connectionStatus_status) + " " + getText(R.string.status_connected)
-                statusTextView?.text =  statusText
-                actionsLinearLayout?.visibility = View.GONE
-                setupButton?.isEnabled = false
-                connectButton?.isEnabled = false
+                mStatusTextView?.text =  statusText
+                mActionsLinearLayout?.visibility = View.GONE
+                mSetupButton?.isEnabled = false
+                mConnectButton?.isEnabled = false
             }
             TCPConnection.Status.RECONNECTING -> {
                 val statusText = getString(R.string.connectionStatus_status) + " " + getText(R.string.status_reconnecting) + " (" + Global.tcpConnection.getRetryCount() + "/" + Global.tcpConnection.getRetryCountMax() + ")"
-                statusTextView?.text =  statusText
-                actionsLinearLayout?.visibility = View.VISIBLE
-                setupButton?.isEnabled = true
-                connectButton?.isEnabled = false
+                mStatusTextView?.text =  statusText
+                mActionsLinearLayout?.visibility = View.VISIBLE
+                mSetupButton?.isEnabled = true
+                mConnectButton?.isEnabled = false
             }
             TCPConnection.Status.DISCONNECTING -> {
                 val statusText = getString(R.string.connectionStatus_status) + " " + getText(R.string.status_disconnecting)
-                statusTextView?.text =  statusText
-                actionsLinearLayout?.visibility = View.VISIBLE
-                setupButton?.isEnabled = true
-                connectButton?.isEnabled = false
+                mStatusTextView?.text =  statusText
+                mActionsLinearLayout?.visibility = View.VISIBLE
+                mSetupButton?.isEnabled = true
+                mConnectButton?.isEnabled = false
             }
             TCPConnection.Status.DISCONNECTED -> {
                 val statusText = getString(R.string.connectionStatus_status) + " " + getText(R.string.status_disconnected)
-                statusTextView?.text =  statusText
-                actionsLinearLayout?.visibility = View.VISIBLE
-                setupButton?.isEnabled = true
-                connectButton?.isEnabled = true
+                mStatusTextView?.text =  statusText
+                mActionsLinearLayout?.visibility = View.VISIBLE
+                mSetupButton?.isEnabled = true
+                mConnectButton?.isEnabled = true
             }
         }
     }

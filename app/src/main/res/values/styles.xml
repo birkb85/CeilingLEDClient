@@ -33,10 +33,6 @@
         <item name="android:singleLine">true</item>
     </style>
 
-    <style name="buttonHeading" parent="@style/button">
-        <item name="android:textSize">@dimen/heading</item>
-    </style>
-
     <!-- Check Box Style -->
     <style name="checkBox" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:textSize">@dimen/normal</item>

@@ -17,7 +17,7 @@
     <dimen name="cell_margin_small">2dp</dimen>
 
     <!-- Text sizes for mobile-->
-    <dimen name="menu">20sp</dimen>
+    <dimen name="menu">40sp</dimen>
     <dimen name="heading">14sp</dimen>
     <dimen name="normal">12sp</dimen>
 </resources>
