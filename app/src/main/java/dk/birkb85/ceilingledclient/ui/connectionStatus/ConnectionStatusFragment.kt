@@ -78,14 +78,16 @@ class ConnectionStatusFragment : Fragment() {
                 connectionSetup()
         }
 
-        Global.tcpConnection.setOnMessageReceivedListener(onMessageReceivedListener)
+//        Global.tcpConnection.setOnMessageReceivedListener(onMessageReceivedListener)
+        Global.tcpConnection.bindTCPConnection(onMessageReceivedListener)
     }
 
     private fun unbindTCP() {
         Log.d("DEBUG", "ConnectionStatus unbindTCP")
         mSetupButton?.setOnClickListener(null)
         mConnectButton?.setOnClickListener(null)
-        Global.tcpConnection.setOnMessageReceivedListener(null)
+//        Global.tcpConnection.setOnMessageReceivedListener(null)
+        Global.tcpConnection.unbindTCPConnection()
     }
 
     private fun connectionSetup() {

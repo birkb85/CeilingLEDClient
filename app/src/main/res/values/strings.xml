@@ -68,4 +68,7 @@
     <!-- Main Activity -->
     <string name="main_pong">Pong</string>
 
+    <!-- Pong Activity -->
+    <string name="pong_player1">Player 1</string>
+    <string name="pong_player2">Player 2</string>
 </resources>

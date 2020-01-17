@@ -2,16 +2,22 @@ package dk.birkb85.ceilingledclient.models
 
 import android.util.Log
 import java.io.*
-import java.lang.Exception
 import java.net.InetSocketAddress
 import java.net.Socket
+import java.util.*
 
 class TCPConnection {
     private var mServerMessage: String? = null // message to send to the server
+
     private var mOnMessageReceivedListener: OnMessageReceivedListener? = null // sends message received notifications
-    private var mRun = false // while this is true, the server will continue running (reading)
+
+    private var mIsRunning = false // while this is true, the server will continue running (reading)
+
+    private var mPauseTimer: Timer? = null
+
     private var mRetryCount = 0
     private val mRetryCountMax = 5
+
     private var mBufferOut: PrintWriter? = null // used to send messages
     private var mBufferIn: BufferedReader? = null // used to read messages from the server
 
@@ -38,39 +44,57 @@ class TCPConnection {
             mOnMessageReceivedListener?.statusChanged(status)
     }
 
-    fun setOnMessageReceivedListener(onMessageReceivedListener: OnMessageReceivedListener?) {
-        mOnMessageReceivedListener = onMessageReceivedListener
+    fun startClient(ip: String, port: Int) {
+        if (!mIsRunning && mStatus == Status.DISCONNECTED) {
+            mIsRunning = true
+            mRetryCount = 0
+            mSocketAddress = InetSocketAddress(ip, port)
+            clientThread()
+        }
     }
 
-    fun startClient(ip: String, port: Int) {
-        mRun = true
-        mRetryCount = 0
-        mSocketAddress = InetSocketAddress(ip, port)
-        clientThread()
+    fun bindTCPConnection(onMessageReceivedListener: OnMessageReceivedListener?) {
+        mOnMessageReceivedListener = onMessageReceivedListener
+        cancelPauseTimer()
+    }
+
+    fun unbindTCPConnection() {
+        mOnMessageReceivedListener = null
+        startPauseTimer()
     }
 
     private fun clientThread() {
         Thread(Runnable {
-            while (mRun) {
+            while (mIsRunning) {
                 try {
                     //create a socket to make the connection with the server
                     setStatus(Status.CONNECTING)
                     mSocket = Socket()
                     mSocket?.connect(mSocketAddress, 10000)
                     setStatus(Status.CONNECTED)
+                    mRetryCount = 0
                     try {
                         //sends the message to the server
                         mBufferOut = PrintWriter(
                             BufferedWriter(OutputStreamWriter(mSocket?.getOutputStream())),
                             true
                         )
+
                         //receives the message which the server sends back
                         mBufferIn = BufferedReader(InputStreamReader(mSocket?.getInputStream()))
+
+                        // Start heart beat.
+                        heartBeatThread()
+
                         //in this while the client listens for the messages sent by the server
-                        while (mRun) {
+                        while (mIsRunning) {
                             mServerMessage = mBufferIn?.readLine()
-                            if (mServerMessage != null && mOnMessageReceivedListener != null) { //call the method messageReceived from MyActivity class
+                            if (mServerMessage != "#[HB]") {
+                                //call the method messageReceived from MyActivity class
+                                Log.d("DEBUG", "TcpClient: Receiving: $mServerMessage")
                                 mOnMessageReceivedListener?.messageReceived(mServerMessage)
+                            } else {
+                                Log.d("DEBUG", "TcpClient: Receiving: Heart Beat")
                             }
                         }
                     } catch (e: Exception) {
@@ -85,16 +109,36 @@ class TCPConnection {
 //                    Log.e("DEBUG", "TCPConnection error: ", e)
                 }
 
-                if (mRun && mRetryCount < mRetryCountMax) {
+                if (mIsRunning && mRetryCount < mRetryCountMax) {
                     mRetryCount ++
                     setStatus(Status.RECONNECTING)
                     Thread.sleep(5000)
                 } else {
-                    mRun = false
+                    mIsRunning = false
                 }
             }
 
             setStatus(Status.DISCONNECTED)
+        }).start()
+    }
+
+    /**
+     * Sends out a heart beat signal every 5 seconds, while connected to server, to keep connection alive.
+     */
+    private fun heartBeatThread() {
+        Thread(Runnable {
+            while (mIsRunning && mStatus == Status.CONNECTED) {
+                try {
+                    if (mBufferOut != null) {
+                        Log.d("DEBUG", "TcpClient: Sending: Heart Beat")
+                        mBufferOut?.println("[HB]")
+                        mBufferOut?.flush()
+                    }
+                    Thread.sleep(5000)
+                } catch (e: Exception) {
+                    Log.e("DEBUG", "TCPConnection heartBeatThread error: ", e)
+                }
+            }
         }).start()
     }
 
@@ -104,43 +148,69 @@ class TCPConnection {
      * @param message text entered by client
      */
     fun sendMessage(message: String) {
-        Log.d("DEBUG", "Send message start.")
-        val runnable = Runnable {
-            if (mBufferOut != null) {
-                Log.d("DEBUG", "TcpClient: Sending: $message")
-                mBufferOut?.println(message)
-                mBufferOut?.flush()
-            }
-            Log.d("DEBUG", "Send message end.")
+        if (mIsRunning && mStatus == Status.CONNECTED) {
+            Thread(Runnable {
+                try {
+                    if (mBufferOut != null) {
+                        Log.d("DEBUG", "TcpClient: Sending: $message")
+                        mBufferOut?.println(message)
+                        mBufferOut?.flush()
+                    }
+                } catch (e: Exception) {
+                    Log.e("DEBUG", "TCPConnection sendMessage error: ", e)
+                }
+            }).start()
         }
-        val thread = Thread(runnable)
-        thread.start()
+    }
+
+    /**
+     * Starts timer that stops client if it runs in background for too long.
+     */
+    private fun startPauseTimer() {
+        if (mIsRunning) {
+            mPauseTimer?.cancel()
+            mPauseTimer = Timer()
+            mPauseTimer?.schedule(object : TimerTask() {
+                override fun run() {
+                    stopClient()
+                }
+            }, 10000)
+        }
+    }
+
+    /**
+     * Cancels timer that stops client if it runs in background for too long.
+     */
+    private fun cancelPauseTimer() {
+        mPauseTimer?.cancel()
     }
 
     /**
      * Close the connection and release the members
      */
     fun stopClient() {
-        setStatus(Status.DISCONNECTING)
-        mRun = false
-        if (mSocket != null) {
-            mSocket?.close()
-            mSocket = null
+        if (mIsRunning) {
+            setStatus(Status.DISCONNECTING)
+            mIsRunning = false
+            if (mSocket != null) {
+                mSocket?.close()
+                mSocket = null
+            }
+            if (mBufferOut != null) {
+                mBufferOut?.flush()
+                mBufferOut?.close()
+                mBufferOut = null
+            }
+            if (mBufferIn != null) {
+                mBufferIn?.close()
+                mBufferIn = null
+            }
+            mServerMessage = null
         }
-        if (mBufferOut != null) {
-            mBufferOut?.flush()
-            mBufferOut?.close()
-            mBufferOut = null
-        }
-        if (mBufferIn != null) {
-            mBufferIn?.close()
-            mBufferIn = null
-        }
-        mServerMessage = null
     }
 
     /**
-     * Status of service.
+     * Status of connection.
      */
     enum class Status {
         CONNECTING,
@@ -151,7 +221,7 @@ class TCPConnection {
     }
 
     /**
-     * Listen for service updates.
+     * Listen for connection updates.
      */
     interface OnMessageReceivedListener {
         fun statusChanged(status: Status)

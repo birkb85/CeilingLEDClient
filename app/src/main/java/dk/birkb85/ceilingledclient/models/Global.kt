@@ -34,11 +34,11 @@ class Global : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        val sharedPref = getSharedPreferences(preferenceFileKey, Context.MODE_PRIVATE)
-        val connectionIP = sharedPref.getString("connection_ip", "")
-        val connectionPort = sharedPref.getInt("connection_port", 0)
-        if (connectionIP != null && connectionIP != "" && connectionPort != 0)
-            tcpConnection.startClient(connectionIP, connectionPort)
+//        val sharedPref = getSharedPreferences(preferenceFileKey, Context.MODE_PRIVATE)
+//        val connectionIP = sharedPref.getString("connection_ip", "")
+//        val connectionPort = sharedPref.getInt("connection_port", 0)
+//        if (connectionIP != null && connectionIP != "" && connectionPort != 0)
+//            tcpConnection.startClient(connectionIP, connectionPort)
     }
 
     /**

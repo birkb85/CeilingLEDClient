@@ -19,18 +19,14 @@ class MainActivity : AppCompatActivity() {
                 .commitNow()
 
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container_main, MainFragment.newInstance())
+                .replace(R.id.container, MainFragment.newInstance())
                 .commitNow()
-
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.container, MainFragment.newInstance())
-//                .commitNow()
         }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) SystemUI.hideImmersiveSticky(window)
+        if (hasFocus) SystemUI.hideImmersiveSticky(window) // TODO BB 2020-01-17. Virker ikke fantastisk godt når man vender skærmen rundt...
     }
 
     /**

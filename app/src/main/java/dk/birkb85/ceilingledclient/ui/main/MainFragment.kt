@@ -86,45 +86,43 @@ class MainFragment : Fragment() {
     }
 
     private fun pongDialogInit() {
-        if (viewModel.mPongDialog == null) {
-            val alertDialogBuilder = AlertDialog.Builder(context)
-            val inflater = (context as Activity).layoutInflater
-            val inflaterView = inflater.inflate(R.layout.dialog_pong, null)
-            alertDialogBuilder.setView(inflaterView)
-            //alertDialogBuilder.setCancelable(false)
-            viewModel.mPongDialog = alertDialogBuilder.create()
+        val alertDialogBuilder = AlertDialog.Builder(context)
+        val inflater = (context as Activity).layoutInflater
+        val inflaterView = inflater.inflate(R.layout.dialog_pong, null)
+        alertDialogBuilder.setView(inflaterView)
+        //alertDialogBuilder.setCancelable(false)
+        viewModel.mPongDialog = alertDialogBuilder.create()
 
-            val player1Button = inflaterView.findViewById(R.id.player1Button) as Button?
-            val player2Button = inflaterView.findViewById(R.id.player2Button) as Button?
-            val player12Button = inflaterView.findViewById(R.id.player12Button) as Button?
+        val player1Button = inflaterView.findViewById(R.id.player1Button) as Button?
+        val player2Button = inflaterView.findViewById(R.id.player2Button) as Button?
+        val player12Button = inflaterView.findViewById(R.id.player12Button) as Button?
 
-            player1Button?.setOnClickListener {
-                viewModel.mPongDialog?.dismiss()
+        player1Button?.setOnClickListener {
+            viewModel.mPongDialog?.dismiss()
 
-                val intent = Intent(context, PongActivity::class.java)
-                intent.putExtra("Player1Active", true)
-                startActivity(intent)
-                activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-            }
+            val intent = Intent(context, PongActivity::class.java)
+            intent.putExtra("Player1Active", true)
+            startActivity(intent)
+            activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
 
-            player2Button?.setOnClickListener {
-                viewModel.mPongDialog?.dismiss()
+        player2Button?.setOnClickListener {
+            viewModel.mPongDialog?.dismiss()
 
-                val intent = Intent(context, PongActivity::class.java)
-                intent.putExtra("Player2Active", true)
-                startActivity(intent)
-                activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-            }
+            val intent = Intent(context, PongActivity::class.java)
+            intent.putExtra("Player2Active", true)
+            startActivity(intent)
+            activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
 
-            player12Button?.setOnClickListener {
-                viewModel.mPongDialog?.dismiss()
+        player12Button?.setOnClickListener {
+            viewModel.mPongDialog?.dismiss()
 
-                val intent = Intent(context, PongActivity::class.java)
-                intent.putExtra("Player1Active", true)
-                intent.putExtra("Player2Active", true)
-                startActivity(intent)
-                activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-            }
+            val intent = Intent(context, PongActivity::class.java)
+            intent.putExtra("Player1Active", true)
+            intent.putExtra("Player2Active", true)
+            startActivity(intent)
+            activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
 

@@ -121,7 +121,8 @@ class ConnectionSetupFragment : Fragment() {
             Global.tcpConnection.sendMessage(mMessageEditText?.text.toString())
         }
 
-        Global.tcpConnection.setOnMessageReceivedListener(onMessageReceivedListener)
+//        Global.tcpConnection.setOnMessageReceivedListener(onMessageReceivedListener)
+        Global.tcpConnection.bindTCPConnection(onMessageReceivedListener)
     }
 
     private fun unbindTCP() {
@@ -129,7 +130,8 @@ class ConnectionSetupFragment : Fragment() {
         mConnectButton?.setOnClickListener(null)
         mDisconnectButton?.setOnClickListener(null)
         mMessageButton?.setOnClickListener(null)
-        Global.tcpConnection.setOnMessageReceivedListener(null)
+//        Global.tcpConnection.setOnMessageReceivedListener(null)
+        Global.tcpConnection.unbindTCPConnection()
     }
 
     private val onMessageReceivedListener: TCPConnection.OnMessageReceivedListener = object: TCPConnection.OnMessageReceivedListener {

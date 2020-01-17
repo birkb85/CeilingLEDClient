@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import dk.birkb85.ceilingledclient.models.SystemUI
+import dk.birkb85.ceilingledclient.ui.connectionStatus.ConnectionStatusFragment
+import dk.birkb85.ceilingledclient.ui.main.MainFragment
 import dk.birkb85.ceilingledclient.ui.pong.PongFragment
 
 class PongActivity : AppCompatActivity() {
@@ -12,6 +14,10 @@ class PongActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pong_activity)
         if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container_connectionStatus, ConnectionStatusFragment.newInstance())
+                .commitNow()
+
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, PongFragment.newInstance())
                 .commitNow()
