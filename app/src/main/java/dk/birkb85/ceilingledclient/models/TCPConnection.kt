@@ -7,43 +7,58 @@ import java.net.Socket
 import java.util.*
 
 class TCPConnection {
-    private var mServerMessage: String? = null // message to send to the server
+    private var mStatusListener: StatusListener? = null
+    private var mMessageReceivedListener: MessageReceivedListener? = null
 
-    private var mOnMessageReceivedListener: OnMessageReceivedListener? = null // sends message received notifications
-
-    private var mIsRunning = false // while this is true, the server will continue running (reading)
-
-    private var mPauseTimer: Timer? = null
-
+    private var mIsRunning = false
     private var mRetryCount = 0
     private val mRetryCountMax = 5
 
-    private var mBufferOut: PrintWriter? = null // used to send messages
-    private var mBufferIn: BufferedReader? = null // used to read messages from the server
+    private var mPauseTimer: Timer? = null
 
     private var mSocketAddress: InetSocketAddress? = null
     private var mSocket: Socket? = null
     private var mStatus: Status = Status.DISCONNECTED
 
+    private var mBufferOut: PrintWriter? = null
+    private var mBufferIn: BufferedReader? = null
+
+    private var mServerMessage: String? = null
+
+    /**
+     * Get current status of connection.
+     */
     fun getStatus(): Status {
         return mStatus
     }
 
+    /**
+     * Get current retry number.
+     */
     fun getRetryCount(): Int {
         return mRetryCount
     }
 
+    /**
+     * Get number of max retries.
+     */
     fun getRetryCountMax(): Int {
         return mRetryCountMax
     }
 
+    /**
+     * Set status.
+     */
     private fun setStatus(status: Status) {
         Log.d("DEBUG", "TCPConnection setStatus: $status")
         mStatus = status
-        if (mOnMessageReceivedListener != null)
-            mOnMessageReceivedListener?.statusChanged(status)
+        mStatusListener?.statusChanged(status)
+        mMessageReceivedListener?.statusChanged(status)
     }
 
+    /**
+     * Start TCP Client.
+     */
     fun startClient(ip: String, port: Int) {
         if (!mIsRunning && mStatus == Status.DISCONNECTED) {
             mIsRunning = true
@@ -53,16 +68,43 @@ class TCPConnection {
         }
     }
 
-    fun bindTCPConnection(onMessageReceivedListener: OnMessageReceivedListener?) {
-        mOnMessageReceivedListener = onMessageReceivedListener
+    /**
+     * Bind status.
+     */
+    fun bindStatusListener(statusListener: StatusListener?) {
+        Log.d("DEBUG", "TCPConnection bindStatusListener")
+        mStatusListener = statusListener
         cancelPauseTimer()
     }
 
-    fun unbindTCPConnection() {
-        mOnMessageReceivedListener = null
+    /**
+     * Unbind status.
+     */
+    fun unbindStatusListener() {
+        Log.d("DEBUG", "TCPConnection unbindStatusListener")
+        mStatusListener = null
         startPauseTimer()
     }
 
+    /**
+     * Bind activity.
+     */
+    fun bindMessageReceivedListener(messageReceivedListener: MessageReceivedListener?) {
+        Log.d("DEBUG", "TCPConnection bindMessageReceivedListener")
+        mMessageReceivedListener = messageReceivedListener
+    }
+
+    /**
+     * Unbind activity.
+     */
+    fun unbindMessageReceivedListener() {
+        Log.d("DEBUG", "TCPConnection unbindMessageReceivedListener")
+        mMessageReceivedListener = null
+    }
+
+    /**
+     * Connection thread. Connect to server and listen for messages.
+     */
     private fun clientThread() {
         Thread(Runnable {
             while (mIsRunning) {
@@ -89,10 +131,10 @@ class TCPConnection {
                         //in this while the client listens for the messages sent by the server
                         while (mIsRunning) {
                             mServerMessage = mBufferIn?.readLine()
-                            if (mServerMessage != "#[HB]") {
+                            if (mServerMessage != "#HB") {
                                 //call the method messageReceived from MyActivity class
                                 Log.d("DEBUG", "TcpClient: Receiving: $mServerMessage")
-                                mOnMessageReceivedListener?.messageReceived(mServerMessage)
+                                mMessageReceivedListener?.messageReceived(mServerMessage)
                             } else {
                                 Log.d("DEBUG", "TcpClient: Receiving: Heart Beat")
                             }
@@ -102,7 +144,7 @@ class TCPConnection {
                     } finally {
                         //the socket must be closed. It is not possible to reconnect to this socket
                         // after it is closed, which means a new socket instance has to be created.
-                        mSocket?.close()
+                        resetConnection()
                     }
                 }
                 catch (e: Exception) {
@@ -129,11 +171,9 @@ class TCPConnection {
         Thread(Runnable {
             while (mIsRunning && mStatus == Status.CONNECTED) {
                 try {
-                    if (mBufferOut != null) {
-                        Log.d("DEBUG", "TcpClient: Sending: Heart Beat")
-                        mBufferOut?.println("[HB]")
-                        mBufferOut?.flush()
-                    }
+                    Log.d("DEBUG", "TcpClient: Sending: Heart Beat")
+                    mBufferOut?.println("HB")
+                    mBufferOut?.flush()
                     Thread.sleep(5000)
                 } catch (e: Exception) {
                     Log.e("DEBUG", "TCPConnection heartBeatThread error: ", e)
@@ -151,11 +191,9 @@ class TCPConnection {
         if (mIsRunning && mStatus == Status.CONNECTED) {
             Thread(Runnable {
                 try {
-                    if (mBufferOut != null) {
-                        Log.d("DEBUG", "TcpClient: Sending: $message")
-                        mBufferOut?.println(message)
-                        mBufferOut?.flush()
-                    }
+                    Log.d("DEBUG", "TcpClient: Sending: $message")
+                    mBufferOut?.println(message)
+                    mBufferOut?.flush()
                 } catch (e: Exception) {
                     Log.e("DEBUG", "TCPConnection sendMessage error: ", e)
                 }
@@ -192,21 +230,22 @@ class TCPConnection {
         if (mIsRunning) {
             setStatus(Status.DISCONNECTING)
             mIsRunning = false
-            if (mSocket != null) {
-                mSocket?.close()
-                mSocket = null
-            }
-            if (mBufferOut != null) {
-                mBufferOut?.flush()
-                mBufferOut?.close()
-                mBufferOut = null
-            }
-            if (mBufferIn != null) {
-                mBufferIn?.close()
-                mBufferIn = null
-            }
-            mServerMessage = null
+            resetConnection()
         }
+    }
+
+    /**
+     * Reset variables for connection.
+     */
+    private fun resetConnection() {
+        mSocket?.close()
+        mSocket = null
+        mBufferOut?.flush()
+        mBufferOut?.close()
+        mBufferOut = null
+        mBufferIn?.close()
+        mBufferIn = null
+        mServerMessage = null
     }
 
     /**
@@ -221,9 +260,17 @@ class TCPConnection {
     }
 
     /**
+     * Listen for status updates.
+     */
+    interface StatusListener {
+        fun statusChanged(status: Status)
+        fun messageReceived(message: String?)
+    }
+
+    /**
      * Listen for connection updates.
      */
-    interface OnMessageReceivedListener {
+    interface MessageReceivedListener {
         fun statusChanged(status: Status)
         fun messageReceived(message: String?)
     }

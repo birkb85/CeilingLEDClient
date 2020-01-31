@@ -24,11 +24,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) SystemUI.hideImmersiveSticky(window) // TODO BB 2020-01-17. Virker ikke fantastisk godt når man vender skærmen rundt...
-    }
-
     /**
      * Method called when key is pressed on device.
      * @param keyCode the key code of the key.

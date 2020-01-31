@@ -60,8 +60,6 @@ class ConnectionStatusFragment : Fragment() {
     }
 
     private fun bindTCP() {
-        Log.d("DEBUG", "ConnectionStatus bindTCP")
-
         onStatusChanged(Global.tcpConnection.getStatus())
 
         mSetupButton?.setOnClickListener {
@@ -78,16 +76,13 @@ class ConnectionStatusFragment : Fragment() {
                 connectionSetup()
         }
 
-//        Global.tcpConnection.setOnMessageReceivedListener(onMessageReceivedListener)
-        Global.tcpConnection.bindTCPConnection(onMessageReceivedListener)
+        Global.tcpConnection.bindStatusListener(statusListener)
     }
 
     private fun unbindTCP() {
-        Log.d("DEBUG", "ConnectionStatus unbindTCP")
         mSetupButton?.setOnClickListener(null)
         mConnectButton?.setOnClickListener(null)
-//        Global.tcpConnection.setOnMessageReceivedListener(null)
-        Global.tcpConnection.unbindTCPConnection()
+        Global.tcpConnection.unbindStatusListener()
     }
 
     private fun connectionSetup() {
@@ -96,11 +91,11 @@ class ConnectionStatusFragment : Fragment() {
         activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
-    private val onMessageReceivedListener: TCPConnection.OnMessageReceivedListener = object: TCPConnection.OnMessageReceivedListener {
+    private val statusListener: TCPConnection.StatusListener = object: TCPConnection.StatusListener {
         override fun statusChanged(status: TCPConnection.Status) {
-            activity?.runOnUiThread(Runnable {
+            activity?.runOnUiThread {
                 onStatusChanged(status)
-            })
+            }
         }
 
         override fun messageReceived(message: String?) {

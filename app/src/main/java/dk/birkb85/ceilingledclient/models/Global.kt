@@ -43,27 +43,24 @@ class Global : Application() {
 
     /**
      * Default dialog showing an message.
-     * @param context context of activity.
+     * @param activity activity.
      * @param message message to display.
      * @param onClickListener callback when clicking on button.
      * @return alert dialog.
      */
     fun getMessageAlertDialog(
-        context: Context?,
+        activity: Activity?,
         message: String,
         onClickListener: AlertDialogButtonOnClickListener?
     ): AlertDialog {
-        val alertDialogBuilder = AlertDialog.Builder(context)
-
-        val inflater = (context as Activity).layoutInflater
-        val inflaterView = inflater.inflate(R.layout.dialog_text, null)
+        val alertDialogBuilder = AlertDialog.Builder(activity)
+        val inflaterView = activity?.layoutInflater?.inflate(R.layout.dialog_text, null, false)
         alertDialogBuilder.setView(inflaterView)
         alertDialogBuilder.setCancelable(false)
-
         val alertDialog = alertDialogBuilder.create()
 
-        val textView = inflaterView.findViewById(R.id.textView) as TextView?
-        val okButton = inflaterView.findViewById(R.id.okButton) as Button?
+        val textView: TextView? = inflaterView?.findViewById(R.id.textView)
+        val okButton: Button? = inflaterView?.findViewById(R.id.okButton)
 
         textView?.text = message
 
@@ -77,30 +74,27 @@ class Global : Application() {
 
     /**
      * Default dialog showing an message, asking for confirmation.
-     * @param context context of activity.
+     * @param activity activity.
      * @param message message to display.
      * @param okOnClickListener callback when confirming action.
      * @param cancelOnClickListener callback when canceling action.
      * @return alert dialog.
      */
     fun getConfirmAlertDialog(
-        context: Context?,
+        activity: Activity?,
         message: String,
         okOnClickListener: AlertDialogButtonOnClickListener?,
         cancelOnClickListener: AlertDialogButtonOnClickListener?
     ): AlertDialog {
-        val alertDialogBuilder = AlertDialog.Builder(context)
-
-        val inflater = (context as Activity).layoutInflater
-        val inflaterView = inflater.inflate(R.layout.dialog_confirm, null)
+        val alertDialogBuilder = AlertDialog.Builder(activity)
+        val inflaterView = activity?.layoutInflater?.inflate(R.layout.dialog_confirm, null, false)
         alertDialogBuilder.setView(inflaterView)
         alertDialogBuilder.setCancelable(false)
-
         val alertDialog = alertDialogBuilder.create()
 
-        val textView = inflaterView.findViewById(R.id.textView) as TextView?
-        val cancelButton = inflaterView.findViewById(R.id.cancelButton) as Button?
-        val okButton = inflaterView.findViewById(R.id.okButton) as Button?
+        val textView: TextView? = inflaterView?.findViewById(R.id.textView)
+        val cancelButton: Button? = inflaterView?.findViewById(R.id.cancelButton)
+        val okButton: Button? = inflaterView?.findViewById(R.id.okButton)
 
         textView?.text = message
 

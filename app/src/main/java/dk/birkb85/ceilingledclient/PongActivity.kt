@@ -2,6 +2,7 @@ package dk.birkb85.ceilingledclient
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import dk.birkb85.ceilingledclient.models.SystemUI
 import dk.birkb85.ceilingledclient.ui.connectionStatus.ConnectionStatusFragment
@@ -22,11 +23,8 @@ class PongActivity : AppCompatActivity() {
                 .replace(R.id.container, PongFragment.newInstance())
                 .commitNow()
         }
-    }
 
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) SystemUI.hideImmersiveSticky(window)
+        SystemUI.hideImmersiveSticky(window)
     }
 
     /**

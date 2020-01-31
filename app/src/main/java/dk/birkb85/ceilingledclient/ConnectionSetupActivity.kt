@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import dk.birkb85.ceilingledclient.models.Global
 import dk.birkb85.ceilingledclient.models.SystemUI
 import dk.birkb85.ceilingledclient.ui.connectionSetup.ConnectionSetupFragment
+import dk.birkb85.ceilingledclient.ui.connectionStatus.ConnectionStatusFragment
 
 class ConnectionSetupActivity : AppCompatActivity() {
 
@@ -17,11 +18,6 @@ class ConnectionSetupActivity : AppCompatActivity() {
                 .replace(R.id.container, ConnectionSetupFragment.newInstance())
                 .commitNow()
         }
-    }
-
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) SystemUI.hideImmersiveSticky(window)
     }
 
     /**

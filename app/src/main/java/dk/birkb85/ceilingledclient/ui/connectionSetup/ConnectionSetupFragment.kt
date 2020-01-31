@@ -93,8 +93,6 @@ class ConnectionSetupFragment : Fragment() {
     }
 
     private fun bindTCP() {
-        Log.d("DEBUG", "ConnectionSetup bindTCP")
-
         onStatusChanged(Global.tcpConnection.getStatus())
 
         mConnectButton?.setOnClickListener {
@@ -121,34 +119,31 @@ class ConnectionSetupFragment : Fragment() {
             Global.tcpConnection.sendMessage(mMessageEditText?.text.toString())
         }
 
-//        Global.tcpConnection.setOnMessageReceivedListener(onMessageReceivedListener)
-        Global.tcpConnection.bindTCPConnection(onMessageReceivedListener)
+        Global.tcpConnection.bindStatusListener(statusListener)
     }
 
     private fun unbindTCP() {
-        Log.d("DEBUG", "ConnectionSetup unbindTCP")
         mConnectButton?.setOnClickListener(null)
         mDisconnectButton?.setOnClickListener(null)
         mMessageButton?.setOnClickListener(null)
-//        Global.tcpConnection.setOnMessageReceivedListener(null)
-        Global.tcpConnection.unbindTCPConnection()
+        Global.tcpConnection.unbindStatusListener()
     }
 
-    private val onMessageReceivedListener: TCPConnection.OnMessageReceivedListener = object: TCPConnection.OnMessageReceivedListener {
+    private val statusListener: TCPConnection.StatusListener = object: TCPConnection.StatusListener {
         override fun statusChanged(status: TCPConnection.Status) {
-            activity?.runOnUiThread(Runnable {
+            activity?.runOnUiThread {
                 onStatusChanged(status)
-            })
+            }
         }
 
         override fun messageReceived(message: String?) {
             val time = System.currentTimeMillis() - mTimestamp
-            activity?.runOnUiThread(Runnable {
+            activity?.runOnUiThread {
                 val timeText = getText(R.string.connectionSetup_time).toString() + " " + time + " ms"
                 mTimeTextView?.text = timeText
                 val messageText = mMessageTextView?.text.toString() + message
                 mMessageTextView?.text = messageText
-            })
+            }
         }
     }
 

@@ -275,7 +275,7 @@ class ConnectionSetupFragment : Fragment() {
 //            }
         }
 
-        tcpService.setOnMessageReceivedListener(object : TCPServiceExample.OnMessageReceivedListener {
+        tcpService.setOnMessageReceivedListener(object : TCPServiceExample.MessageReceivedListener {
             override fun statusChanged(status: TCPServiceExample.Status) {
                 activity?.runOnUiThread(Runnable {
                     onStatusChanged(status)

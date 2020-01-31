@@ -7,9 +7,7 @@ import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import dk.birkb85.ceilingledclient.ConnectionSetupActivity
 import dk.birkb85.ceilingledclient.PongActivity
 import dk.birkb85.ceilingledclient.R
 
@@ -86,16 +84,15 @@ class MainFragment : Fragment() {
     }
 
     private fun pongDialogInit() {
-        val alertDialogBuilder = AlertDialog.Builder(context)
-        val inflater = (context as Activity).layoutInflater
-        val inflaterView = inflater.inflate(R.layout.dialog_pong, null)
+        val alertDialogBuilder = AlertDialog.Builder(activity)
+        val inflaterView = activity?.layoutInflater?.inflate(R.layout.dialog_pong, null, false)
         alertDialogBuilder.setView(inflaterView)
         //alertDialogBuilder.setCancelable(false)
         viewModel.mPongDialog = alertDialogBuilder.create()
 
-        val player1Button = inflaterView.findViewById(R.id.player1Button) as Button?
-        val player2Button = inflaterView.findViewById(R.id.player2Button) as Button?
-        val player12Button = inflaterView.findViewById(R.id.player12Button) as Button?
+        val player1Button: Button? = inflaterView?.findViewById(R.id.player1Button)
+        val player2Button: Button? = inflaterView?.findViewById(R.id.player2Button)
+        val player12Button: Button? = inflaterView?.findViewById(R.id.player12Button)
 
         player1Button?.setOnClickListener {
             viewModel.mPongDialog?.dismiss()
