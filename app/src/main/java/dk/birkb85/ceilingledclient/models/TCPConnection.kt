@@ -131,9 +131,10 @@ class TCPConnection {
                         //in this while the client listens for the messages sent by the server
                         while (mIsRunning) {
                             mServerMessage = mBufferIn?.readLine()
-                            if (mServerMessage != "#HB") {
+                            if (mServerMessage != "HB") {
                                 //call the method messageReceived from MyActivity class
                                 Log.d("DEBUG", "TcpClient: Receiving: $mServerMessage")
+                                mStatusListener?.messageReceived(mServerMessage)
                                 mMessageReceivedListener?.messageReceived(mServerMessage)
                             } else {
                                 Log.d("DEBUG", "TcpClient: Receiving: Heart Beat")
