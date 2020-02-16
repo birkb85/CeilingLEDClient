@@ -19,6 +19,7 @@ import dk.birkb85.ceilingledclient.models.TCPConnection
 
 class ConnectionStatusFragment : Fragment() {
     private var mStatusTextView: TextView? = null
+    private var mMessageTextView: TextView? = null
     private var mActionsLinearLayout: LinearLayout? = null
     private var mSetupButton: Button? = null
     private var mConnectButton: Button? = null
@@ -40,6 +41,7 @@ class ConnectionStatusFragment : Fragment() {
 
         // Set views
         mStatusTextView = activity?.findViewById(R.id.statusTextView)
+        mMessageTextView = activity?.findViewById(R.id.messageTextView)
         mActionsLinearLayout = activity?.findViewById(R.id.actionsLinearLayout)
         mSetupButton = activity?.findViewById(R.id.setupButton)
         mConnectButton = activity?.findViewById(R.id.connectButton)
@@ -99,6 +101,10 @@ class ConnectionStatusFragment : Fragment() {
         }
 
         override fun messageReceived(message: String?) {
+            activity?.runOnUiThread {
+                val messageText = getString(R.string.connectionStatus_message) + " " + message
+                mMessageTextView?.text = messageText
+            }
         }
     }
 

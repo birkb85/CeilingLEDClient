@@ -76,26 +76,26 @@ class PongFragment : Fragment() {
     private val messageReceivedListener: TCPConnection.MessageReceivedListener = object: TCPConnection.MessageReceivedListener {
         override fun statusChanged(status: TCPConnection.Status) {
             activity?.runOnUiThread {
-                Log.d("DEBUG", "Pong Status: $status")
+                //Log.d("DEBUG", "Pong Status: $status")
             }
         }
 
         override fun messageReceived(message: String?) {
             activity?.runOnUiThread {
-                Log.d("DEBUG", "Pong Message: $message")
+                //Log.d("DEBUG", "Pong Message: $message")
             }
         }
     }
 
     private var player1ButtonOnTouchListener = View.OnTouchListener { view, motionEvent ->
         if(motionEvent.action == MotionEvent.ACTION_DOWN){
-            Log.d("DEBUG", "Player 1 ACTION_DOWN")
+            //Log.d("DEBUG", "Player 1 ACTION_DOWN")
             Global.tcpConnection.sendMessage("PONG:P1=1")
             return@OnTouchListener true
         }
 
         if(motionEvent.action == MotionEvent.ACTION_UP){
-            Log.d("DEBUG", "Player 1 ACTION_UP")
+            //Log.d("DEBUG", "Player 1 ACTION_UP")
             Global.tcpConnection.sendMessage("PONG:P1=0")
             return@OnTouchListener true
         }
@@ -105,13 +105,13 @@ class PongFragment : Fragment() {
 
     private var player2ButtonOnTouchListener = View.OnTouchListener { view, motionEvent ->
         if(motionEvent.action == MotionEvent.ACTION_DOWN){
-            Log.d("DEBUG", "Player 2 ACTION_DOWN")
+            //Log.d("DEBUG", "Player 2 ACTION_DOWN")
             Global.tcpConnection.sendMessage("PONG:P2=1")
             return@OnTouchListener true
         }
 
         if(motionEvent.action == MotionEvent.ACTION_UP){
-            Log.d("DEBUG", "Player 2 ACTION_UP")
+            //Log.d("DEBUG", "Player 2 ACTION_UP")
             Global.tcpConnection.sendMessage("PONG:P2=0")
             return@OnTouchListener true
         }

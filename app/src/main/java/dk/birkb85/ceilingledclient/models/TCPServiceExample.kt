@@ -41,7 +41,7 @@ class TCPServiceExample : Service() {
     }
 
     private fun setStatus(status: Status) {
-        Log.d("DEBUG", "TCPServiceExample setStatus: $status")
+        //Log.d("DEBUG", "TCPServiceExample setStatus: $status")
         mStatus = status
         if (mOnMessageReceived != null)
             mOnMessageReceived?.statusChanged(status)
@@ -130,14 +130,14 @@ class TCPServiceExample : Service() {
      * @param message text entered by client
      */
     fun sendMessage(message: String) {
-        Log.d("DEBUG", "Send message start.")
+        //Log.d("DEBUG", "Send message start.")
         val runnable = Runnable {
             if (mBufferOut != null) {
-                Log.d("DEBUG", "TcpClient: Sending: $message")
+                //Log.d("DEBUG", "TcpClient: Sending: $message")
                 mBufferOut?.println(message)
                 mBufferOut?.flush()
             }
-            Log.d("DEBUG", "Send message end.")
+            //Log.d("DEBUG", "Send message end.")
         }
         val thread = Thread(runnable)
         thread.start()

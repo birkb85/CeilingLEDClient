@@ -50,7 +50,7 @@ class TCPConnection {
      * Set status.
      */
     private fun setStatus(status: Status) {
-        Log.d("DEBUG", "TCPConnection setStatus: $status")
+        //Log.d("DEBUG", "TCPConnection setStatus: $status")
         mStatus = status
         mStatusListener?.statusChanged(status)
         mMessageReceivedListener?.statusChanged(status)
@@ -72,7 +72,7 @@ class TCPConnection {
      * Bind status.
      */
     fun bindStatusListener(statusListener: StatusListener?) {
-        Log.d("DEBUG", "TCPConnection bindStatusListener")
+        //Log.d("DEBUG", "TCPConnection bindStatusListener")
         mStatusListener = statusListener
         cancelPauseTimer()
     }
@@ -81,7 +81,7 @@ class TCPConnection {
      * Unbind status.
      */
     fun unbindStatusListener() {
-        Log.d("DEBUG", "TCPConnection unbindStatusListener")
+        //Log.d("DEBUG", "TCPConnection unbindStatusListener")
         mStatusListener = null
         startPauseTimer()
     }
@@ -90,7 +90,7 @@ class TCPConnection {
      * Bind activity.
      */
     fun bindMessageReceivedListener(messageReceivedListener: MessageReceivedListener?) {
-        Log.d("DEBUG", "TCPConnection bindMessageReceivedListener")
+        //Log.d("DEBUG", "TCPConnection bindMessageReceivedListener")
         mMessageReceivedListener = messageReceivedListener
     }
 
@@ -98,7 +98,7 @@ class TCPConnection {
      * Unbind activity.
      */
     fun unbindMessageReceivedListener() {
-        Log.d("DEBUG", "TCPConnection unbindMessageReceivedListener")
+        //Log.d("DEBUG", "TCPConnection unbindMessageReceivedListener")
         mMessageReceivedListener = null
     }
 
@@ -133,15 +133,15 @@ class TCPConnection {
                             mServerMessage = mBufferIn?.readLine()
                             if (mServerMessage != "HB") {
                                 //call the method messageReceived from MyActivity class
-                                Log.d("DEBUG", "TcpClient: Receiving: $mServerMessage")
+                                //Log.d("DEBUG", "TcpClient: Receiving: $mServerMessage")
                                 mStatusListener?.messageReceived(mServerMessage)
                                 mMessageReceivedListener?.messageReceived(mServerMessage)
-                            } else {
-                                Log.d("DEBUG", "TcpClient: Receiving: Heart Beat")
-                            }
+                            } //else {
+                                //Log.d("DEBUG", "TcpClient: Receiving: Heart Beat")
+                            //}
                         }
                     } catch (e: Exception) {
-//                        Log.e("DEBUG", "TCPConnection error: ", e)
+                        Log.e("DEBUG", "TCPConnection error: ", e)
                     } finally {
                         //the socket must be closed. It is not possible to reconnect to this socket
                         // after it is closed, which means a new socket instance has to be created.
@@ -149,7 +149,7 @@ class TCPConnection {
                     }
                 }
                 catch (e: Exception) {
-//                    Log.e("DEBUG", "TCPConnection error: ", e)
+                    Log.e("DEBUG", "TCPConnection error: ", e)
                 }
 
                 if (mIsRunning && mRetryCount < mRetryCountMax) {
@@ -172,7 +172,7 @@ class TCPConnection {
         Thread(Runnable {
             while (mIsRunning && mStatus == Status.CONNECTED) {
                 try {
-                    Log.d("DEBUG", "TcpClient: Sending: Heart Beat")
+                    //Log.d("DEBUG", "TcpClient: Sending: Heart Beat")
                     mBufferOut?.println("HB")
                     mBufferOut?.flush()
                     Thread.sleep(5000)
@@ -192,7 +192,7 @@ class TCPConnection {
         if (mIsRunning && mStatus == Status.CONNECTED) {
             Thread(Runnable {
                 try {
-                    Log.d("DEBUG", "TcpClient: Sending: $message")
+                    //Log.d("DEBUG", "TcpClient: Sending: $message")
                     mBufferOut?.println(message)
                     mBufferOut?.flush()
                 } catch (e: Exception) {

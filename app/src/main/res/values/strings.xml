@@ -62,6 +62,7 @@
 
     <!-- Connection Status Activity -->
     <string name="connectionStatus_status">Status:</string>
+    <string name="connectionStatus_message">, besked:</string>
     <string name="connectionStatus_connect">Forbind</string>
     <string name="connectionStatus_setup">Opsætning</string>
 
