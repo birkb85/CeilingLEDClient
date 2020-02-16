@@ -173,7 +173,7 @@ class TCPConnection {
             while (mIsRunning && mStatus == Status.CONNECTED) {
                 try {
                     //Log.d("DEBUG", "TcpClient: Sending: Heart Beat")
-                    mBufferOut?.println("HB")
+                    mBufferOut?.print("HB")
                     mBufferOut?.flush()
                     Thread.sleep(5000)
                 } catch (e: Exception) {
@@ -193,7 +193,7 @@ class TCPConnection {
             Thread(Runnable {
                 try {
                     //Log.d("DEBUG", "TcpClient: Sending: $message")
-                    mBufferOut?.println(message)
+                    mBufferOut?.print(message)
                     mBufferOut?.flush()
                 } catch (e: Exception) {
                     Log.e("DEBUG", "TCPConnection sendMessage error: ", e)
