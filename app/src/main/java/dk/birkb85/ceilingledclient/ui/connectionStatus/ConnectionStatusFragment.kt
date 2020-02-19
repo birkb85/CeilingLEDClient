@@ -3,7 +3,6 @@ package dk.birkb85.ceilingledclient.ui.connectionStatus
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -100,10 +99,15 @@ class ConnectionStatusFragment : Fragment() {
             }
         }
 
-        override fun messageReceived(message: String?) {
+        override fun messageReceived(message: String) {
             activity?.runOnUiThread {
-                val messageText = getString(R.string.connectionStatus_message) + " " + message
-                mMessageTextView?.text = messageText
+                if (message == "") {
+                    mMessageTextView?.text = ""
+                } else {
+                    var messageText = getString(R.string.connectionStatus_message)
+                    messageText = messageText.replace("[MEMORY]", message)
+                    mMessageTextView?.text = messageText
+                }
             }
         }
     }
@@ -111,35 +115,40 @@ class ConnectionStatusFragment : Fragment() {
     private fun onStatusChanged(status: TCPConnection.Status) {
         when(status) {
             TCPConnection.Status.CONNECTING -> {
-                val statusText = getString(R.string.connectionStatus_status) + " " + getText(R.string.status_connecting)
+                var statusText = getString(R.string.connectionStatus_status)
+                statusText = statusText.replace("[STATUS]", getString(R.string.status_connecting))
                 mStatusTextView?.text =  statusText
                 mActionsLinearLayout?.visibility = View.VISIBLE
                 mSetupButton?.isEnabled = true
                 mConnectButton?.isEnabled = false
             }
             TCPConnection.Status.CONNECTED -> {
-                val statusText = getString(R.string.connectionStatus_status) + " " + getText(R.string.status_connected)
+                var statusText = getString(R.string.connectionStatus_status)
+                statusText = statusText.replace("[STATUS]", getString(R.string.status_connected))
                 mStatusTextView?.text =  statusText
                 mActionsLinearLayout?.visibility = View.GONE
                 mSetupButton?.isEnabled = false
                 mConnectButton?.isEnabled = false
             }
             TCPConnection.Status.RECONNECTING -> {
-                val statusText = getString(R.string.connectionStatus_status) + " " + getText(R.string.status_reconnecting) + " (" + Global.tcpConnection.getRetryCount() + "/" + Global.tcpConnection.getRetryCountMax() + ")"
+                var statusText = getString(R.string.connectionStatus_status)
+                statusText = statusText.replace("[STATUS]", getString(R.string.status_reconnecting) + " (" + Global.tcpConnection.getRetryCount() + "/" + Global.tcpConnection.getRetryCountMax() + ")")
                 mStatusTextView?.text =  statusText
                 mActionsLinearLayout?.visibility = View.VISIBLE
                 mSetupButton?.isEnabled = true
                 mConnectButton?.isEnabled = false
             }
             TCPConnection.Status.DISCONNECTING -> {
-                val statusText = getString(R.string.connectionStatus_status) + " " + getText(R.string.status_disconnecting)
+                var statusText = getString(R.string.connectionStatus_status)
+                statusText = statusText.replace("[STATUS]", getString(R.string.status_disconnecting))
                 mStatusTextView?.text =  statusText
                 mActionsLinearLayout?.visibility = View.VISIBLE
                 mSetupButton?.isEnabled = true
                 mConnectButton?.isEnabled = false
             }
             TCPConnection.Status.DISCONNECTED -> {
-                val statusText = getString(R.string.connectionStatus_status) + " " + getText(R.string.status_disconnected)
+                var statusText = getString(R.string.connectionStatus_status)
+                statusText = statusText.replace("[STATUS]", getString(R.string.status_disconnected))
                 mStatusTextView?.text =  statusText
                 mActionsLinearLayout?.visibility = View.VISIBLE
                 mSetupButton?.isEnabled = true

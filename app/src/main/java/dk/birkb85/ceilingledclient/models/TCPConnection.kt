@@ -131,14 +131,14 @@ class TCPConnection {
                         //in this while the client listens for the messages sent by the server
                         while (mIsRunning) {
                             mServerMessage = mBufferIn?.readLine()
-                            if (mServerMessage != "HB") {
-                                //call the method messageReceived from MyActivity class
-                                //Log.d("DEBUG", "TcpClient: Receiving: $mServerMessage")
-                                mStatusListener?.messageReceived(mServerMessage)
-                                mMessageReceivedListener?.messageReceived(mServerMessage)
-                            } //else {
-                                //Log.d("DEBUG", "TcpClient: Receiving: Heart Beat")
-                            //}
+                            mServerMessage?.let {
+                                Log.d("DEBUG", "TcpClient: Receiving: $mServerMessage")
+                                if (it.startsWith("HB:")) {
+                                    mStatusListener?.messageReceived(it.substring(3))
+                                } else {
+                                    mMessageReceivedListener?.messageReceived(it)
+                                }
+                            }
                         }
                     } catch (e: Exception) {
                         Log.e("DEBUG", "TCPConnection error: ", e)
@@ -265,7 +265,7 @@ class TCPConnection {
      */
     interface StatusListener {
         fun statusChanged(status: Status)
-        fun messageReceived(message: String?)
+        fun messageReceived(message: String)
     }
 
     /**
@@ -273,6 +273,6 @@ class TCPConnection {
      */
     interface MessageReceivedListener {
         fun statusChanged(status: Status)
-        fun messageReceived(message: String?)
+        fun messageReceived(message: String)
     }
 }

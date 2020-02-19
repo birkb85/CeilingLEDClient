@@ -119,24 +119,24 @@ class ConnectionSetupFragment : Fragment() {
             Global.tcpConnection.sendMessage(mMessageEditText?.text.toString())
         }
 
-        Global.tcpConnection.bindStatusListener(statusListener)
+        Global.tcpConnection.bindMessageReceivedListener(messageReceivedListener)
     }
 
     private fun unbindTCP() {
         mConnectButton?.setOnClickListener(null)
         mDisconnectButton?.setOnClickListener(null)
         mMessageButton?.setOnClickListener(null)
-        Global.tcpConnection.unbindStatusListener()
+        Global.tcpConnection.unbindMessageReceivedListener()
     }
 
-    private val statusListener: TCPConnection.StatusListener = object: TCPConnection.StatusListener {
+    private val messageReceivedListener: TCPConnection.MessageReceivedListener = object: TCPConnection.MessageReceivedListener {
         override fun statusChanged(status: TCPConnection.Status) {
             activity?.runOnUiThread {
                 onStatusChanged(status)
             }
         }
 
-        override fun messageReceived(message: String?) {
+        override fun messageReceived(message: String) {
             val time = System.currentTimeMillis() - mTimestamp
             activity?.runOnUiThread {
                 val timeText = getText(R.string.connectionSetup_time).toString() + " " + time + " ms"
@@ -150,7 +150,8 @@ class ConnectionSetupFragment : Fragment() {
     private fun onStatusChanged(status: TCPConnection.Status) {
         when(status) {
             TCPConnection.Status.CONNECTING -> {
-                val statusText = getString(R.string.connectionSetup_status) + " " + getText(R.string.status_connecting)
+                var statusText = getString(R.string.connectionSetup_status)
+                statusText = statusText.replace("[STATUS]", getString(R.string.status_connecting))
                 mStatusTextView?.text =  statusText
                 mIPEditText?.isEnabled = false
                 mPortEditText?.isEnabled = false
@@ -160,7 +161,8 @@ class ConnectionSetupFragment : Fragment() {
                 mMessageButton?.isEnabled = false
             }
             TCPConnection.Status.CONNECTED -> {
-                val statusText = getString(R.string.connectionSetup_status) + " " + getText(R.string.status_connected)
+                var statusText = getString(R.string.connectionSetup_status)
+                statusText = statusText.replace("[STATUS]", getString(R.string.status_connected))
                 mStatusTextView?.text =  statusText
                 mIPEditText?.isEnabled = false
                 mPortEditText?.isEnabled = false
@@ -170,7 +172,8 @@ class ConnectionSetupFragment : Fragment() {
                 mMessageButton?.isEnabled = true
             }
             TCPConnection.Status.RECONNECTING -> {
-                val statusText = getString(R.string.connectionSetup_status) + " " + getText(R.string.status_reconnecting) + " (" + Global.tcpConnection.getRetryCount() + "/" + Global.tcpConnection.getRetryCountMax() + ")"
+                var statusText = getString(R.string.connectionSetup_status)
+                statusText = statusText.replace("[STATUS]", getString(R.string.status_reconnecting) + " (" + Global.tcpConnection.getRetryCount() + "/" + Global.tcpConnection.getRetryCountMax() + ")")
                 mStatusTextView?.text =  statusText
                 mIPEditText?.isEnabled = false
                 mPortEditText?.isEnabled = false
@@ -180,7 +183,8 @@ class ConnectionSetupFragment : Fragment() {
                 mMessageButton?.isEnabled = false
             }
             TCPConnection.Status.DISCONNECTING -> {
-                val statusText = getString(R.string.connectionSetup_status) + " " + getText(R.string.status_disconnecting)
+                var statusText = getString(R.string.connectionSetup_status)
+                statusText = statusText.replace("[STATUS]", getString(R.string.status_disconnecting))
                 mStatusTextView?.text =  statusText
                 mIPEditText?.isEnabled = false
                 mPortEditText?.isEnabled = false
@@ -190,7 +194,8 @@ class ConnectionSetupFragment : Fragment() {
                 mMessageButton?.isEnabled = false
             }
             TCPConnection.Status.DISCONNECTED -> {
-                val statusText = getString(R.string.connectionSetup_status) + " " + getText(R.string.status_disconnected)
+                var statusText = getString(R.string.connectionSetup_status)
+                statusText = statusText.replace("[STATUS]", getString(R.string.status_disconnected))
                 mStatusTextView?.text =  statusText
                 mIPEditText?.isEnabled = true
                 mPortEditText?.isEnabled = true

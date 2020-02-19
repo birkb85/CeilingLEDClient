@@ -50,7 +50,7 @@
 
     <!-- Connection Setup Activity -->
     <string name="connectionSetup_connection">Forbindelse</string>
-    <string name="connectionSetup_status">Status:</string>
+    <string name="connectionSetup_status">Status: [STATUS].</string>
     <string name="connectionSetup_ip">Server ip</string>
     <string name="connectionSetup_port">Server port</string>
     <string name="connectionSetup_connect">Forbind til server</string>
@@ -61,8 +61,8 @@
     <string name="connectionSetup_time">Tid for send og modtag:</string>
 
     <!-- Connection Status Activity -->
-    <string name="connectionStatus_status">Status:</string>
-    <string name="connectionStatus_message">, besked:</string>
+    <string name="connectionStatus_status">Status: [STATUS].</string>
+    <string name="connectionStatus_message">Hukommelse: [MEMORY] bytes fri.</string>
     <string name="connectionStatus_connect">Forbind</string>
     <string name="connectionStatus_setup">Opsætning</string>
 

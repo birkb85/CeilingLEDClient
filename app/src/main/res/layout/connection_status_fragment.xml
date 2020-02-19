@@ -21,11 +21,12 @@
             android:text="@string/connectionStatus_status" />
 
         <TextView
+            android:layout_marginStart="@dimen/cell_margin"
             android:id="@+id/messageTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/connectionStatus_message" />
+            android:text="" />
 
         <LinearLayout
             android:layout_width="wrap_content"
