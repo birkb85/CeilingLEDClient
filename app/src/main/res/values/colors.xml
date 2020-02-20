@@ -18,4 +18,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorDisabled">#C5C5C5</color>
     <color name="colorError">#AA0000</color>
+
+    <color name="colorButtonUp">#2196F3</color>
+    <color name="colorButtonDown">#1976D2</color>
 </resources>
