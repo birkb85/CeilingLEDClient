@@ -92,14 +92,14 @@ class PongFragment : Fragment() {
         if(motionEvent.action == MotionEvent.ACTION_DOWN){
             //Log.d("DEBUG", "Player 1 ACTION_DOWN")
             mPlayer1Button?.setBackgroundColor(resources.getColor(R.color.colorButtonDown))
-            Global.tcpConnection.sendMessage("PONG:P1=1")
+            Global.tcpConnection.sendMessage("PONG:P1=1;")
             return@OnTouchListener true
         }
 
         if(motionEvent.action == MotionEvent.ACTION_UP){
             //Log.d("DEBUG", "Player 1 ACTION_UP")
             mPlayer1Button?.setBackgroundColor(resources.getColor(R.color.colorButtonUp))
-            Global.tcpConnection.sendMessage("PONG:P1=0")
+            Global.tcpConnection.sendMessage("PONG:P1=0;")
             return@OnTouchListener true
         }
 
@@ -110,14 +110,14 @@ class PongFragment : Fragment() {
         if(motionEvent.action == MotionEvent.ACTION_DOWN){
             //Log.d("DEBUG", "Player 2 ACTION_DOWN")
             mPlayer2Button?.setBackgroundColor(resources.getColor(R.color.colorButtonDown))
-            Global.tcpConnection.sendMessage("PONG:P2=1")
+            Global.tcpConnection.sendMessage("PONG:P2=1;")
             return@OnTouchListener true
         }
 
         if(motionEvent.action == MotionEvent.ACTION_UP){
             //Log.d("DEBUG", "Player 2 ACTION_UP")
             mPlayer2Button?.setBackgroundColor(resources.getColor(R.color.colorButtonUp))
-            Global.tcpConnection.sendMessage("PONG:P2=0")
+            Global.tcpConnection.sendMessage("PONG:P2=0;")
             return@OnTouchListener true
         }
 

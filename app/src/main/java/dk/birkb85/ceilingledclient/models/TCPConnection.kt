@@ -173,7 +173,7 @@ class TCPConnection {
             while (mIsRunning && mStatus == Status.CONNECTED) {
                 try {
                     //Log.d("DEBUG", "TcpClient: Sending: Heart Beat")
-                    mBufferOut?.print("HB")
+                    mBufferOut?.print("HB;")
                     mBufferOut?.flush()
                     Thread.sleep(5000)
                 } catch (e: Exception) {
