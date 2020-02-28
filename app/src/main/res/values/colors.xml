@@ -19,6 +19,8 @@
     <color name="colorDisabled">#C5C5C5</color>
     <color name="colorError">#AA0000</color>
 
-    <color name="colorButtonUp">#2196F3</color>
-    <color name="colorButtonDown">#1976D2</color>
+    <color name="colorP1ButtonUp">#FF0000</color>
+    <color name="colorP1ButtonDown">#AA0000</color>
+    <color name="colorP2ButtonUp">#00FF00</color>
+    <color name="colorP2ButtonDown">#00AA00</color>
 </resources>

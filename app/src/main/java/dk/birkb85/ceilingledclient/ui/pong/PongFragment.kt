@@ -2,19 +2,16 @@ package dk.birkb85.ceilingledclient.ui.pong
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Button
 import android.widget.Space
 import androidx.fragment.app.Fragment
 import dk.birkb85.ceilingledclient.R
 import dk.birkb85.ceilingledclient.models.Global
 import dk.birkb85.ceilingledclient.models.TCPConnection
-import kotlinx.android.synthetic.main.dialog_pong.*
 
 class PongFragment : Fragment() {
-    private var mPlayer1Button: Button? = null
-    private var mPlayer2Button: Button? = null
+    private var mPlayer1Button: View? = null
+    private var mPlayer2Button: View? = null
     private var mButtonSpace: Space? = null
 
     private var mPlayer1Active = false
@@ -91,14 +88,14 @@ class PongFragment : Fragment() {
     private var player1ButtonOnTouchListener = View.OnTouchListener { view, motionEvent ->
         if(motionEvent.action == MotionEvent.ACTION_DOWN){
             //Log.d("DEBUG", "Player 1 ACTION_DOWN")
-            mPlayer1Button?.setBackgroundColor(resources.getColor(R.color.colorButtonDown))
+            mPlayer1Button?.setBackgroundColor(resources.getColor(R.color.colorP1ButtonDown))
             Global.tcpConnection.sendMessage("PONG:P1=1;")
             return@OnTouchListener true
         }
 
         if(motionEvent.action == MotionEvent.ACTION_UP){
             //Log.d("DEBUG", "Player 1 ACTION_UP")
-            mPlayer1Button?.setBackgroundColor(resources.getColor(R.color.colorButtonUp))
+            mPlayer1Button?.setBackgroundColor(resources.getColor(R.color.colorP1ButtonUp))
             Global.tcpConnection.sendMessage("PONG:P1=0;")
             return@OnTouchListener true
         }
@@ -109,14 +106,14 @@ class PongFragment : Fragment() {
     private var player2ButtonOnTouchListener = View.OnTouchListener { view, motionEvent ->
         if(motionEvent.action == MotionEvent.ACTION_DOWN){
             //Log.d("DEBUG", "Player 2 ACTION_DOWN")
-            mPlayer2Button?.setBackgroundColor(resources.getColor(R.color.colorButtonDown))
+            mPlayer2Button?.setBackgroundColor(resources.getColor(R.color.colorP2ButtonDown))
             Global.tcpConnection.sendMessage("PONG:P2=1;")
             return@OnTouchListener true
         }
 
         if(motionEvent.action == MotionEvent.ACTION_UP){
             //Log.d("DEBUG", "Player 2 ACTION_UP")
-            mPlayer2Button?.setBackgroundColor(resources.getColor(R.color.colorButtonUp))
+            mPlayer2Button?.setBackgroundColor(resources.getColor(R.color.colorP2ButtonUp))
             Global.tcpConnection.sendMessage("PONG:P2=0;")
             return@OnTouchListener true
         }

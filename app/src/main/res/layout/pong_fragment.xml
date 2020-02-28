@@ -14,33 +14,24 @@
     android:orientation="horizontal"
     tools:context=".ui.pong.PongFragment">
 
-<!--    <TextView-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_weight="1"-->
-<!--        />-->
-
-    <Button
-        android:id="@+id/player1Button"
+    <View
+        android:id="@+id/player2Button"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
         android:textSize="@dimen/menu"
-        android:text="@string/pong_player1"
-        android:background="@color/colorButtonUp"/>
+        android:background="@color/colorP2ButtonUp"/>
 
     <Space
         android:layout_width="@dimen/activity_horizontal_margin"
         android:layout_height="match_parent"
         android:id="@+id/buttonSpace"/>
 
-    <Button
-        android:id="@+id/player2Button"
+    <View
+        android:id="@+id/player1Button"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
         android:textSize="@dimen/menu"
-        android:text="@string/pong_player2"
-        android:background="@color/colorButtonUp"/>
-
+        android:background="@color/colorP1ButtonUp"/>
 </LinearLayout>
