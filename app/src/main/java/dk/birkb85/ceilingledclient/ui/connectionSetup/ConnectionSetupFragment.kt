@@ -116,7 +116,7 @@ class ConnectionSetupFragment : Fragment() {
             mTimeTextView?.text = getText(R.string.connectionSetup_time)
             mMessageTextView?.text = ""
 
-            Global.tcpConnection.sendMessage("MSG:" + mMessageEditText?.text.toString() + ";")
+            Global.tcpConnection.sendMessage(Global.DATA_MESSAGE + ":" + mMessageEditText?.text.toString() + ";")
         }
 
         Global.tcpConnection.bindMessageReceivedListener(messageReceivedListener)

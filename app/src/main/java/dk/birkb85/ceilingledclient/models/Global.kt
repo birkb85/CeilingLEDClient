@@ -3,13 +3,9 @@ package dk.birkb85.ceilingledclient.models
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Application
-import android.content.Context
-import android.view.View
-import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import dk.birkb85.ceilingledclient.R
-
 
 /**
  * Global methods.
@@ -25,6 +21,25 @@ class Global : Application() {
          * Global TCPConnection controlling TCP connection to Arduino.
          */
         val tcpConnection: TCPConnection = TCPConnection()
+
+        /**
+         * Data values to be sent to server.
+         */
+        const val MODE_MAIN = "0"
+        const val MODE_SHOWCASE = "1"
+        const val MODE_PONG = "2"
+
+        const val DATA_UNDEFINED = "0"
+        const val DATA_HEART_BEAT = "1"
+        const val DATA_MESSAGE = "2"
+        const val DATA_SET_MODE = "3"
+        const val DATA_MAIN = "4"
+        const val DATA_PONG = "5"
+
+        const val DATA_PONG_P1_PRESSED = "0"
+        const val DATA_PONG_P1_RELEASED = "1"
+        const val DATA_PONG_P2_PRESSED = "2"
+        const val DATA_PONG_P2_RELEASED = "3"
     }
 
     /**

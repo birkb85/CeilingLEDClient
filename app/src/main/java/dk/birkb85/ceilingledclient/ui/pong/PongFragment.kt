@@ -89,14 +89,16 @@ class PongFragment : Fragment() {
         if(motionEvent.action == MotionEvent.ACTION_DOWN){
             //Log.d("DEBUG", "Player 1 ACTION_DOWN")
             mPlayer1Button?.setBackgroundColor(resources.getColor(R.color.colorP1ButtonDown))
-            Global.tcpConnection.sendMessage("PONG:P1=1;")
+//            Global.tcpConnection.sendMessage("PONG:P1=1;")
+            Global.tcpConnection.sendMessage(Global.DATA_PONG + ":" + Global.DATA_PONG_P1_PRESSED + ";")
             return@OnTouchListener true
         }
 
         if(motionEvent.action == MotionEvent.ACTION_UP){
             //Log.d("DEBUG", "Player 1 ACTION_UP")
             mPlayer1Button?.setBackgroundColor(resources.getColor(R.color.colorP1ButtonUp))
-            Global.tcpConnection.sendMessage("PONG:P1=0;")
+//            Global.tcpConnection.sendMessage("PONG:P1=0;")
+            Global.tcpConnection.sendMessage(Global.DATA_PONG + ":" + Global.DATA_PONG_P1_RELEASED + ";")
             return@OnTouchListener true
         }
 
@@ -107,14 +109,16 @@ class PongFragment : Fragment() {
         if(motionEvent.action == MotionEvent.ACTION_DOWN){
             //Log.d("DEBUG", "Player 2 ACTION_DOWN")
             mPlayer2Button?.setBackgroundColor(resources.getColor(R.color.colorP2ButtonDown))
-            Global.tcpConnection.sendMessage("PONG:P2=1;")
+//            Global.tcpConnection.sendMessage("PONG:P2=1;")
+            Global.tcpConnection.sendMessage(Global.DATA_PONG + ":" + Global.DATA_PONG_P2_PRESSED + ";")
             return@OnTouchListener true
         }
 
         if(motionEvent.action == MotionEvent.ACTION_UP){
             //Log.d("DEBUG", "Player 2 ACTION_UP")
             mPlayer2Button?.setBackgroundColor(resources.getColor(R.color.colorP2ButtonUp))
-            Global.tcpConnection.sendMessage("PONG:P2=0;")
+//            Global.tcpConnection.sendMessage("PONG:P2=0;")
+            Global.tcpConnection.sendMessage(Global.DATA_PONG + ":" + Global.DATA_PONG_P2_RELEASED + ";")
             return@OnTouchListener true
         }
 
