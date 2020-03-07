@@ -67,6 +67,7 @@
     <string name="connectionStatus_setup">Opsætning</string>
 
     <!-- Main Activity -->
+    <string name="main_main">Main</string>
     <string name="main_pong">Pong</string>
 
     <!-- Pong Activity -->

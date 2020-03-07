@@ -25,8 +25,8 @@ class Global : Application() {
         /**
          * Data values to be sent to server.
          */
-        const val MODE_MAIN = "0"
-        const val MODE_SHOWCASE = "1"
+        const val MODE_BOOTING = "0"
+        const val MODE_MAIN = "1"
         const val MODE_PONG = "2"
 
         const val DATA_UNDEFINED = "0"

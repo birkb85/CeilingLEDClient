@@ -10,8 +10,10 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import dk.birkb85.ceilingledclient.PongActivity
 import dk.birkb85.ceilingledclient.R
+import dk.birkb85.ceilingledclient.models.Global
 
 class MainFragment : Fragment() {
+    private var mMainButton: Button? = null
     private var mPongButton: Button? = null
 
     companion object {
@@ -59,9 +61,11 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
         // Set views
+        mMainButton = activity?.findViewById(R.id.mainButton)
         mPongButton = activity?.findViewById(R.id.pongButton)
 
         pongDialogInit()
+        mMainButton?.setOnClickListener(mainButtonOnClickListener)
         mPongButton?.setOnClickListener(pongButtonOnClickListener)
     }
 
@@ -123,7 +127,12 @@ class MainFragment : Fragment() {
         }
     }
 
+    private val mainButtonOnClickListener = View.OnClickListener {
+        Global.tcpConnection.sendMessage(Global.DATA_SET_MODE + ":" + Global.MODE_MAIN + ";")
+    }
+
     private val pongButtonOnClickListener = View.OnClickListener {
+        Global.tcpConnection.sendMessage(Global.DATA_SET_MODE + ":" + Global.MODE_PONG + ";")
         viewModel.mPongDialog?.show()
     }
 }
