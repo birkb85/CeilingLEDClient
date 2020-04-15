@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.main.MainFragment">
+
+    <Button
+        android:id="@+id/blinkButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/heading"
+        android:text="@string/main_blink" />
+
+    <Button
+        android:id="@+id/wipeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/heading"
+        android:text="@string/main_wipe" />
+
+    <Button
+        android:id="@+id/theaterChaseButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/heading"
+        android:text="@string/main_theaterChase" />
+
+    <Button
+        android:id="@+id/rainbowButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/heading"
+        android:text="@string/main_rainbow" />
+
+    <Button
+        android:id="@+id/theaterChaseRainbowButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/heading"
+        android:text="@string/main_theaterChaseRainbow" />
+</LinearLayout>

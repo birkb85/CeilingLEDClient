@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import dk.birkb85.ceilingledclient.MainActivity
 import dk.birkb85.ceilingledclient.PongActivity
 import dk.birkb85.ceilingledclient.R
 import dk.birkb85.ceilingledclient.models.Global
@@ -128,6 +129,9 @@ class HomeFragment : Fragment() {
 
     private val mainButtonOnClickListener = View.OnClickListener {
         Global.tcpConnection.sendMessage(Global.DATA_SET_MODE + ":" + Global.MODE_MAIN + ";")
+        val intent = Intent(context, MainActivity::class.java)
+        startActivity(intent)
+        activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
     private val pongButtonOnClickListener = View.OnClickListener {

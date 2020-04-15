@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".ConnectionSetupActivity" />
         <activity android:name=".ConnectionStatusActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".PongActivity" />
         <service android:name=".models.TCPServiceExample" />
     </application>
