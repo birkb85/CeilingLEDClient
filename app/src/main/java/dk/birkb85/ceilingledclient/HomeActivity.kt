@@ -2,24 +2,22 @@ package dk.birkb85.ceilingledclient
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
-import dk.birkb85.ceilingledclient.models.SystemUI
 import dk.birkb85.ceilingledclient.ui.connectionStatus.ConnectionStatusFragment
-import dk.birkb85.ceilingledclient.ui.main.MainFragment
+import dk.birkb85.ceilingledclient.ui.home.HomeFragment
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        setContentView(R.layout.home_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container_connectionStatus, ConnectionStatusFragment.newInstance())
                 .commitNow()
 
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
+                .replace(R.id.container, HomeFragment.newInstance())
                 .commitNow()
         }
     }
@@ -48,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 //     */
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
 //        // Inflate the menu; this adds items to the action bar if it is present.
-//        menuInflater.inflate(R.menu.menu_main, menu)
+//        menuInflater.inflate(R.menu.menu_home, menu)
 //        return true
 //    }
 }

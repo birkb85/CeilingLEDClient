@@ -2,11 +2,9 @@ package dk.birkb85.ceilingledclient
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import dk.birkb85.ceilingledclient.models.SystemUI
 import dk.birkb85.ceilingledclient.ui.connectionStatus.ConnectionStatusFragment
-import dk.birkb85.ceilingledclient.ui.main.MainFragment
 import dk.birkb85.ceilingledclient.ui.pong.PongFragment
 
 class PongActivity : AppCompatActivity() {

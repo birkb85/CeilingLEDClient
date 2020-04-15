@@ -25,6 +25,7 @@ class Global : Application() {
         /**
          * Data values to be sent to server.
          */
+        // LEDServer.ino
         const val MODE_BOOTING = "0"
         const val MODE_MAIN = "1"
         const val MODE_PONG = "2"
@@ -36,6 +37,17 @@ class Global : Application() {
         const val DATA_MAIN = "4"
         const val DATA_PONG = "5"
 
+        // Main.h
+        const val MODE_MAIN_BLINK = "0"
+        const val MODE_MAIN_WIPE = "1"
+        const val MODE_MAIN_THEATER_CHASE = "2"
+        const val MODE_MAIN_RAINBOW = "3"
+        const val MODE_MAIN_THEATER_CHASE_RAINBOW = "4"
+
+        const val DATA_MAIN_UNDEFINED = "0"
+        const val DATA_MAIN_SET_MODE = "1"
+
+        // Pong.h
         const val DATA_PONG_P1_PRESSED = "0"
         const val DATA_PONG_P1_RELEASED = "1"
         const val DATA_PONG_P2_PRESSED = "2"
