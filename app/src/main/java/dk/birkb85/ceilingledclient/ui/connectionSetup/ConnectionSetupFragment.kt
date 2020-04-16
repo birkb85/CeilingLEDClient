@@ -2,7 +2,6 @@ package dk.birkb85.ceilingledclient.ui.connectionSetup
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import dk.birkb85.ceilingledclient.R
 import dk.birkb85.ceilingledclient.models.Global
 import dk.birkb85.ceilingledclient.models.TCPConnection
@@ -42,7 +41,7 @@ class ConnectionSetupFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ConnectionSetupViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ConnectionSetupViewModel::class.java)
 
         // Set views
         mStatusTextView = activity?.findViewById(R.id.statusTextView)

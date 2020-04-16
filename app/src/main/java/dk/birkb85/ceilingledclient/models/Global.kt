@@ -46,6 +46,7 @@ class Global : Application() {
 
         const val DATA_MAIN_UNDEFINED = "0"
         const val DATA_MAIN_SET_MODE = "1"
+        const val DATA_MAIN_COLOR = "2"
 
         // Pong.h
         const val DATA_PONG_P1_PRESSED = "0"

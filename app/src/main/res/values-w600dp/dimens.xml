@@ -2,6 +2,6 @@
 <resources>
     <!-- Text sizes for tablet-->
     <dimen name="menu">60sp</dimen>
-    <dimen name="heading">18sp</dimen>
-    <dimen name="normal">14sp</dimen>
+    <dimen name="heading">21sp</dimen>
+    <dimen name="normal">18sp</dimen>
 </resources>

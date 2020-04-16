@@ -1,10 +1,10 @@
 package dk.birkb85.ceilingledclient.ui.pong
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.*
 import android.widget.Space
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import dk.birkb85.ceilingledclient.R
 import dk.birkb85.ceilingledclient.models.Global
 import dk.birkb85.ceilingledclient.models.TCPConnection
@@ -41,7 +41,7 @@ class PongFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(PongViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(PongViewModel::class.java)
 
         // Set views
         mPlayer1Button = activity?.findViewById(R.id.player1Button)

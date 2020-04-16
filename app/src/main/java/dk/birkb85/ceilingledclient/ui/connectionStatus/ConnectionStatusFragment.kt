@@ -10,7 +10,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import dk.birkb85.ceilingledclient.ConnectionSetupActivity
 import dk.birkb85.ceilingledclient.R
 import dk.birkb85.ceilingledclient.models.Global
@@ -36,7 +36,7 @@ class ConnectionStatusFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ConnectionStatusViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ConnectionStatusViewModel::class.java)
 
         // Set views
         mStatusTextView = activity?.findViewById(R.id.statusTextView)

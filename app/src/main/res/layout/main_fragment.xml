@@ -1,51 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/activity_horizontal_margin"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
-    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-    android:layout_marginBottom="@dimen/activity_vertical_margin"
-    android:gravity="center"
-    android:orientation="vertical"
+    android:background="@color/colorBackground"
     tools:context=".ui.main.MainFragment">
 
-    <Button
-        android:id="@+id/blinkButton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/heading"
-        android:text="@string/main_blink" />
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/wipeButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/heading"
-        android:text="@string/main_wipe" />
+        <Button
+            android:id="@+id/modeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/main_chooseMode"
+            android:textSize="@dimen/heading" />
 
-    <Button
-        android:id="@+id/theaterChaseButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/heading"
-        android:text="@string/main_theaterChase" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/colorPickerCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="1dp">
 
-    <Button
-        android:id="@+id/rainbowButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/heading"
-        android:text="@string/main_rainbow" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginBottom="@dimen/default_margin"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:orientation="vertical">
 
-    <Button
-        android:id="@+id/theaterChaseRainbowButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/heading"
-        android:text="@string/main_theaterChaseRainbow" />
-</LinearLayout>
+                <TextView
+                    android:id="@+id/blinkTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/main_chooseColor"
+                    android:textSize="@dimen/heading" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginBottom="@dimen/default_margin"
+                    android:background="@color/colorDivider" />
+
+                <com.skydoves.colorpickerview.ColorPickerView
+                    android:id="@+id/colorPickerView"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center_horizontal"
+                    app:actionMode="always"
+                    app:palette="@drawable/palette"
+                    app:selector="@drawable/wheel" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</ScrollView>

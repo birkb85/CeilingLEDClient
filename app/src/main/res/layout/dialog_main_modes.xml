@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/blinkButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialogMainModes_blink"
+            android:textSize="@dimen/heading" />
+
+        <Button
+            android:id="@+id/wipeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialogMainModes_wipe"
+            android:textSize="@dimen/heading" />
+
+        <Button
+            android:id="@+id/theaterChaseButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialogMainModes_theaterChase"
+            android:textSize="@dimen/heading" />
+
+        <Button
+            android:id="@+id/rainbowButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialogMainModes_rainbow"
+            android:textSize="@dimen/heading" />
+
+        <Button
+            android:id="@+id/theaterChaseRainbowButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialogMainModes_theaterChaseRainbow"
+            android:textSize="@dimen/heading" />
+    </LinearLayout>
+</ScrollView>

@@ -2,11 +2,11 @@ package dk.birkb85.ceilingledclient.ui.home
 
 import android.app.AlertDialog
 import android.content.Intent
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import dk.birkb85.ceilingledclient.MainActivity
 import dk.birkb85.ceilingledclient.PongActivity
 import dk.birkb85.ceilingledclient.R
@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         // Set views
         mMainButton = activity?.findViewById(R.id.mainButton)

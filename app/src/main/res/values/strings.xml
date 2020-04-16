@@ -71,11 +71,15 @@
     <string name="home_pong">Pong</string>
 
     <!-- Main Activity -->
-    <string name="main_blink">Blink</string>
-    <string name="main_wipe">Wipe</string>
-    <string name="main_theaterChase">Theater Chase</string>
-    <string name="main_rainbow">Rainbow</string>
-    <string name="main_theaterChaseRainbow">Theater Chase Rainbow</string>
+    <string name="main_chooseMode">Vælg tilstand</string>
+    <string name="main_chooseColor">Vælg farve</string>
+
+    <!-- Dialog Main Modes -->
+    <string name="dialogMainModes_blink">Blink</string>
+    <string name="dialogMainModes_wipe">Wipe</string>
+    <string name="dialogMainModes_theaterChase">Theater Chase</string>
+    <string name="dialogMainModes_rainbow">Rainbow</string>
+    <string name="dialogMainModes_theaterChaseRainbow">Theater Chase Rainbow</string>
 
     <!-- Pong Activity -->
     <string name="pong_player1">Player 1</string>
