@@ -67,12 +67,15 @@
     <string name="connectionStatus_setup">Opsætning</string>
 
     <!-- Home Activity -->
-    <string name="home_main">Main</string>
+    <string name="home_brightness">Lysstyrke</string>
+    <string name="home_chooseMode">Funktioner</string>
+    <string name="home_main">Demo</string>
     <string name="home_pong">Pong</string>
 
     <!-- Main Activity -->
+    <string name="main_mode">Tilstand</string>
     <string name="main_chooseMode">Vælg tilstand</string>
-    <string name="main_chooseColor">Vælg farve</string>
+    <string name="main_color">Farve</string>
 
     <!-- Dialog Main Modes -->
     <string name="dialogMainModes_blink">Blink</string>

@@ -3,8 +3,10 @@ package dk.birkb85.ceilingledclient.ui.home
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Button
+import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import dk.birkb85.ceilingledclient.MainActivity
@@ -13,6 +15,7 @@ import dk.birkb85.ceilingledclient.R
 import dk.birkb85.ceilingledclient.models.Global
 
 class HomeFragment : Fragment() {
+    private var mBrightnessSeekBar: SeekBar? = null
     private var mMainButton: Button? = null
     private var mPongButton: Button? = null
 
@@ -61,8 +64,12 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         // Set views
+        mBrightnessSeekBar = activity?.findViewById(R.id.brightnessSeekBar)
         mMainButton = activity?.findViewById(R.id.mainButton)
         mPongButton = activity?.findViewById(R.id.pongButton)
+
+        mBrightnessSeekBar?.max = 255
+        mBrightnessSeekBar?.setOnSeekBarChangeListener(brightnessSeekBarOnSeekBarChangeListener)
 
         pongDialogInit()
         mMainButton?.setOnClickListener(mainButtonOnClickListener)
@@ -126,6 +133,32 @@ class HomeFragment : Fragment() {
             activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
+
+    private val brightnessSeekBarOnSeekBarChangeListener =
+        object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                val systemTimeCurrent = System.currentTimeMillis()
+                if (systemTimeCurrent - viewModel.mSystemTimeInterval > viewModel.mSystemTimeLast) {
+                    viewModel.mSystemTimeLast = systemTimeCurrent
+                    Global.tcpConnection.sendMessage(
+                        Global.DATA_SET_BRIGHTNESS + ":" +
+                                p1.toString() + ";"
+                    )
+                }
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                p0?.progress?.let {
+                    Global.tcpConnection.sendMessage(
+                        Global.DATA_SET_BRIGHTNESS + ":" +
+                                it.toString() + ";"
+                    )
+                }
+            }
+        }
 
     private val mainButtonOnClickListener = View.OnClickListener {
         Global.tcpConnection.sendMessage(Global.DATA_SET_MODE + ":" + Global.MODE_MAIN + ";")

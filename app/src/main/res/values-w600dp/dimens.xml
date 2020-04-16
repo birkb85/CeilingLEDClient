@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Text sizes for tablet-->
-    <dimen name="menu">60sp</dimen>
+    <dimen name="menu">45sp</dimen>
     <dimen name="heading">21sp</dimen>
     <dimen name="normal">18sp</dimen>
 </resources>

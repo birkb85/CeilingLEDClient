@@ -10,5 +10,5 @@ class MainViewModel : ViewModel() {
     var mSelectedMode = ""
 
     var mSystemTimeLast: Long = 0
-    var mSystemTimeInterval = 50
+    var mSystemTimeInterval = 25
 }
