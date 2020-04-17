@@ -7,12 +7,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginLeft="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:layout_marginRight="@dimen/margin_default"
+        android:layout_marginBottom="@dimen/margin_default"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -21,34 +21,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/dialogMainModes_blink"
-            android:textSize="@dimen/heading" />
+            style="@style/buttonMenu" />
 
         <Button
             android:id="@+id/wipeButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/dialogMainModes_wipe"
-            android:textSize="@dimen/heading" />
+            style="@style/buttonMenu" />
 
         <Button
             android:id="@+id/theaterChaseButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/dialogMainModes_theaterChase"
-            android:textSize="@dimen/heading" />
+            style="@style/buttonMenu" />
 
         <Button
             android:id="@+id/rainbowButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/dialogMainModes_rainbow"
-            android:textSize="@dimen/heading" />
+            style="@style/buttonMenu" />
 
         <Button
             android:id="@+id/theaterChaseRainbowButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/dialogMainModes_theaterChaseRainbow"
-            android:textSize="@dimen/heading" />
+            style="@style/buttonMenu" />
     </LinearLayout>
 </ScrollView>

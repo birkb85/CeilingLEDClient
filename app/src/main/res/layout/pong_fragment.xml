@@ -1,37 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pong"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/activity_horizontal_margin"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
-    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:background="@color/colorBackground"
     android:gravity="center"
     android:orientation="horizontal"
     tools:context=".ui.pong.PongFragment">
 
-    <View
-        android:id="@+id/player2Button"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/player2CardView"
         android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:layout_marginBottom="@dimen/margin_default"
         android:layout_weight="1"
-        android:layout_height="match_parent"
-        android:textSize="@dimen/menu"
-        android:background="@color/colorP2ButtonUp"/>
+        app:cardCornerRadius="1dp">
 
-    <Space
-        android:layout_width="@dimen/activity_horizontal_margin"
-        android:layout_height="match_parent"
-        android:id="@+id/buttonSpace"/>
+        <View
+            android:id="@+id/player2Button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorP2ButtonUp" />
+    </androidx.cardview.widget.CardView>
 
-    <View
-        android:id="@+id/player1Button"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/player1CardView"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="match_parent"
-        android:textSize="@dimen/menu"
-        android:background="@color/colorP1ButtonUp"/>
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:layout_marginBottom="@dimen/margin_default"
+        android:layout_weight="1"
+        app:cardCornerRadius="1dp">
+
+        <View
+            android:id="@+id/player1Button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorP1ButtonUp" />
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

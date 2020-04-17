@@ -1,8 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -12,20 +10,22 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
 
-        <item name="buttonStyle">@style/button</item>
-        <item name="checkboxStyle">@style/checkBox</item>
-        <item name="radioButtonStyle">@style/radioButton</item>
+        <item name="android:buttonStyle">@style/buttonNormal</item>
+        <item name="android:editTextStyle">@style/editTextNormal</item>
+        <item name="android:textViewStyle">@style/textViewNormal</item>
+        <!--        <item name="checkboxStyle">@style/checkBox</item>-->
+        <!--        <item name="radioButtonStyle">@style/radioButton</item>-->
     </style>
 
-<!--    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">-->
-<!--        <item name="android:windowNoTitle">true</item>-->
-<!--        <item name="android:windowActionBar">false</item>-->
-<!--        <item name="android:windowFullscreen">true</item>-->
-<!--        <item name="android:windowContentOverlay">@null</item>-->
-<!--    </style>-->
+    <!--    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">-->
+    <!--        <item name="android:windowNoTitle">true</item>-->
+    <!--        <item name="android:windowActionBar">false</item>-->
+    <!--        <item name="android:windowFullscreen">true</item>-->
+    <!--        <item name="android:windowContentOverlay">@null</item>-->
+    <!--    </style>-->
 
-    <!-- Button Style -->
-    <style name="button" parent="@style/Widget.AppCompat.Button.Colored">
+    <!-- Button Styles -->
+    <style name="buttonNormal" parent="@style/Widget.AppCompat.Button.Colored">
         <item name="android:textSize">@dimen/normal</item>
         <item name="android:typeface">normal</item>
         <item name="android:textStyle">normal</item>
@@ -33,100 +33,53 @@
         <item name="android:singleLine">true</item>
     </style>
 
-    <!-- Check Box Style -->
-    <style name="checkBox" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
-        <item name="android:textSize">@dimen/normal</item>
-        <item name="android:typeface">normal</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:singleLine">true</item>
+    <style name="buttonHeading" parent="buttonNormal">
+        <item name="android:textSize">@dimen/heading</item>
     </style>
 
-    <!-- Check Box Style -->
-    <style name="radioButton" parent="@style/Widget.AppCompat.CompoundButton.RadioButton">
-        <item name="android:textSize">@dimen/normal</item>
-        <item name="android:typeface">normal</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:singleLine">true</item>
-    </style>
-
-    <!-- Edit Text Style -->
-    <style name="editText" parent="Widget.AppCompat.EditText">
-        <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textSize">@dimen/normal</item>
-        <item name="android:typeface">normal</item>
-        <item name="android:textStyle">normal</item>
-    </style>
-
-    <!-- Text Styles -->
-    <style name="textMenu">
-        <item name="android:textColor">@color/colorPrimaryText</item>
+    <style name="buttonMenu" parent="buttonNormal">
         <item name="android:textSize">@dimen/menu</item>
+    </style>
+
+    <!-- Check Box Style -->
+    <!--    <style name="checkBox" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">-->
+    <!--        <item name="android:textSize">@dimen/normal</item>-->
+    <!--        <item name="android:typeface">normal</item>-->
+    <!--        <item name="android:textStyle">normal</item>-->
+    <!--        <item name="android:singleLine">true</item>-->
+    <!--    </style>-->
+
+    <!-- Check Box Style -->
+    <!--    <style name="radioButton" parent="@style/Widget.AppCompat.CompoundButton.RadioButton">-->
+    <!--        <item name="android:textSize">@dimen/normal</item>-->
+    <!--        <item name="android:typeface">normal</item>-->
+    <!--        <item name="android:textStyle">normal</item>-->
+    <!--        <item name="android:singleLine">true</item>-->
+    <!--    </style>-->
+
+    <!-- Edit Text Styles -->
+    <style name="editTextNormal" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">@dimen/normal</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- Text View Styles -->
+    <style name="textViewNormal" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/normal</item>
         <item name="android:typeface">normal</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:singleLine">false</item>
     </style>
 
-    <style name="textMenuBold" parent="textMenu">
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="textMenuSecondary" parent="textMenu">
-        <item name="android:textColor">@color/colorSecondaryText</item>
-    </style>
-
-    <style name="textMenuSecondaryBold" parent="textMenuSecondary">
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="textMenuSmall" parent="textMenu">
+    <style name="textViewHeading" parent="textViewNormal">
         <item name="android:textSize">@dimen/heading</item>
-    </style>
-
-    <style name="textHeading">
-        <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textSize">@dimen/heading</item>
-        <item name="android:typeface">normal</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:textAllCaps">false</item>
         <item name="android:singleLine">true</item>
-        <item name="android:paddingTop">@dimen/cell_margin</item>
-        <item name="android:paddingBottom">@dimen/cell_margin</item>
     </style>
 
-    <style name="textNormal">
-        <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textSize">@dimen/normal</item>
-        <item name="android:typeface">normal</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:singleLine">false</item>
-        <item name="android:paddingTop">@dimen/cell_margin</item>
-        <item name="android:paddingBottom">@dimen/cell_margin</item>
-    </style>
-
-    <style name="textNormalError" parent="textNormal">
-        <item name="android:textColor">@color/colorError</item>
-    </style>
-
-    <style name="textCell">
-        <item name="android:textColor">@color/colorPrimaryText</item>
-        <item name="android:textSize">@dimen/normal</item>
-        <item name="android:typeface">normal</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:singleLine">false</item>
-        <item name="android:paddingTop">@dimen/cell_margin_small</item>
-        <item name="android:paddingBottom">@dimen/cell_margin_small</item>
-        <item name="android:paddingLeft">@dimen/cell_margin</item>
-        <item name="android:paddingRight">@dimen/cell_margin</item>
-    </style>
-
-    <style name="textCellBold" parent="textCell">
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="textCellSecondary" parent="textCell">
-        <item name="android:textColor">@color/colorSecondaryText</item>
+    <style name="textViewMenu" parent="textViewNormal">
+        <item name="android:textSize">@dimen/menu</item>
+        <item name="android:singleLine">true</item>
     </style>
 </resources>

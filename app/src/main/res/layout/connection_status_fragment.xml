@@ -5,50 +5,39 @@
     android:id="@+id/connectionStatus"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
     tools:context=".ui.connectionStatus.ConnectionStatusFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/statusTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:text="@string/connectionStatus_status" />
 
-        <TextView
-            android:id="@+id/statusTextView"
+    <TextView
+        android:id="@+id/messageTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_half"
+        android:layout_weight="1"
+        android:text="" />
+
+    <LinearLayout
+        android:id="@+id/actionsLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/setupButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/connectionStatus_status" />
+            android:text="@string/connectionStatus_setup" />
 
-        <TextView
-            android:layout_marginStart="@dimen/cell_margin"
-            android:id="@+id/messageTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="" />
-
-        <LinearLayout
+        <Button
+            android:id="@+id/connectButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/actionsLinearLayout">
-
-            <Button
-                android:id="@+id/setupButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/connectionStatus_setup" />
-
-            <Button
-                android:id="@+id/connectButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/connectionStatus_connect" />
-        </LinearLayout>
+            android:text="@string/connectionStatus_connect" />
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorDivider" />
 </LinearLayout>
