@@ -7,8 +7,11 @@ class MainViewModel : ViewModel() {
     var mMainModesDialog: AlertDialog? = null
     var mMainModesDialogIsShowing: Boolean = false
 
+    var mLoopIntervalTimeLast: Long = 0
+    var mLoopIntervalTimeInterval = 25
+
     var mSelectedMode = ""
 
-    var mSystemTimeLast: Long = 0
-    var mSystemTimeInterval = 25
+    var mColorTimeLast: Long = 0
+    var mColorTimeInterval = 25
 }

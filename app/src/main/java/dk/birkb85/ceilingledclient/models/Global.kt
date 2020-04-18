@@ -34,9 +34,11 @@ class Global : Application() {
         const val DATA_HEART_BEAT = "1"
         const val DATA_MESSAGE = "2"
         const val DATA_SET_BRIGHTNESS = "3"
-        const val DATA_SET_MODE = "4"
-        const val DATA_MAIN = "5"
-        const val DATA_PONG = "6"
+        const val DATA_SET_LOOP_INTERVAL = "4"
+        const val DATA_SET_STRIP_CLEAR = "5"
+        const val DATA_SET_MODE = "6"
+        const val DATA_MAIN = "7"
+        const val DATA_PONG = "8"
 
         // Main.h
         const val MODE_MAIN_BLINK = "0"

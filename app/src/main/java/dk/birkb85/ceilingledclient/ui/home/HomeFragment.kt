@@ -68,7 +68,7 @@ class HomeFragment : Fragment() {
         mMainButton = activity?.findViewById(R.id.mainButton)
         mPongButton = activity?.findViewById(R.id.pongButton)
 
-        mBrightnessSeekBar?.max = 255
+        mBrightnessSeekBar?.max = 99
         mBrightnessSeekBar?.setOnSeekBarChangeListener(brightnessSeekBarOnSeekBarChangeListener)
 
         pongDialogInit()

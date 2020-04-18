@@ -48,7 +48,7 @@
                 <SeekBar
                     android:id="@+id/brightnessSeekBar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="50dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:text="@string/home_chooseMode"
-                    style="@style/textViewHeading" />
+                    style="@style/textViewMenu" />
 
                 <View
                     android:layout_width="match_parent"

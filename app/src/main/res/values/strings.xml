@@ -73,6 +73,10 @@
     <string name="home_pong">Pong</string>
 
     <!-- Main Activity -->
+    <string name="main_loopInterval">Opdateringshastighed</string>
+    <string name="main_stripClear">Nulstil strip</string>
+    <string name="main_stripClearOn">Til</string>
+    <string name="main_stripClearOff">Fra</string>
     <string name="main_mode">Tilstand</string>
     <string name="main_chooseMode">Vælg tilstand</string>
     <string name="main_color">Farve</string>

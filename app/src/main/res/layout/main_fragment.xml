@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".ui.main.MainFragment">
+    tools:context=".ui.main.MainFragment"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,11 +34,11 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/textViewHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="@string/main_mode"
-                    style="@style/textViewHeading" />
+                    android:text="@string/main_loopInterval" />
 
                 <View
                     android:layout_width="match_parent"
@@ -45,17 +47,14 @@
                     android:layout_marginBottom="@dimen/margin_default"
                     android:background="@color/colorDivider" />
 
-                <Button
-                    android:id="@+id/modeButton"
+                <SeekBar
+                    android:id="@+id/loopIntervalSeekBar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_chooseMode"
-                    style="@style/buttonMenu" />
+                    android:layout_height="50dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/colorPickerCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -74,12 +73,106 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/blinkTextView"
+                    style="@style/textViewHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="@string/main_color"
-                    style="@style/textViewHeading" />
+                    android:text="@string/main_stripClear" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/margin_default"
+                    android:layout_marginBottom="@dimen/margin_default"
+                    android:background="@color/colorDivider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/stripClearOffButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/main_stripClearOff" />
+
+                    <Button
+                        android:id="@+id/stripClearOnButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/main_stripClearOn" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/margin_half"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_marginTop="@dimen/margin_default"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:layout_marginBottom="@dimen/margin_default"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/textViewMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/main_mode" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/margin_default"
+                    android:layout_marginBottom="@dimen/margin_default"
+                    android:background="@color/colorDivider" />
+
+                <Button
+                    android:id="@+id/modeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/buttonMenu"
+                    android:text="@string/main_chooseMode" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/colorPickerCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin_double"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin_double"
+            android:layout_marginBottom="@dimen/margin_half">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_default"
+                android:layout_marginTop="@dimen/margin_default"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:layout_marginBottom="@dimen/margin_default"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/blinkTextView"
+                    style="@style/textViewHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/main_color" />
 
                 <View
                     android:layout_width="match_parent"

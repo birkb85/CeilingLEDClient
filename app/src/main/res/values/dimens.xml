@@ -2,7 +2,9 @@
 <resources>
     <!-- Screen margins -->
     <dimen name="activity_horizontal_margin">10dp</dimen>
+    <dimen name="activity_horizontal_margin_double">20dp</dimen>
     <dimen name="activity_vertical_margin">10dp</dimen>
+    <dimen name="activity_vertical_margin_double">20dp</dimen>
 
     <!-- Seperator margin -->
     <dimen name="margin_default">10dp</dimen>
