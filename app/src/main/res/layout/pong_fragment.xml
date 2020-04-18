@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:gravity="center"
     android:orientation="horizontal"
     tools:context=".ui.pong.PongFragment">

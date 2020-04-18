@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     tools:context=".ui.connectionSetup.ConnectionSetupFragment">
 
     <LinearLayout
@@ -32,11 +34,11 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/textViewHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="@string/connectionSetup_connection"
-                    style="@style/textViewHeading" />
+                    android:text="@string/connectionSetup_connection" />
 
                 <View
                     android:layout_width="match_parent"
@@ -56,7 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/connectionSetup_ip"
-                    android:inputType="text"/>
+                    android:inputType="text" />
 
                 <EditText
                     android:id="@+id/portEditText"
@@ -98,11 +100,11 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/textViewHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="@string/connectionSetup_sendMessage"
-                    style="@style/textViewHeading" />
+                    android:text="@string/connectionSetup_sendMessage" />
 
                 <View
                     android:layout_width="match_parent"

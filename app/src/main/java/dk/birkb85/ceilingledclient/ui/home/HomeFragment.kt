@@ -86,8 +86,8 @@ class HomeFragment : Fragment() {
         super.onPause()
 
         viewModel.mPongDialogIsShowing = false
-        viewModel.mPongDialog.let {
-            if (it != null && it.isShowing) {
+        viewModel.mPongDialog?.let {
+            if (it.isShowing) {
                 viewModel.mPongDialogIsShowing = true
                 viewModel.mPongDialog?.dismiss()
             }

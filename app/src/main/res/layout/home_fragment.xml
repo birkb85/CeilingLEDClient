@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     tools:context=".ui.home.HomeFragment">
 
     <LinearLayout
@@ -32,11 +34,11 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/textViewHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="@string/home_brightness"
-                    style="@style/textViewHeading" />
+                    android:text="@string/home_brightness" />
 
                 <View
                     android:layout_width="match_parent"
@@ -71,11 +73,11 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/textViewMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="@string/home_chooseMode"
-                    style="@style/textViewMenu" />
+                    android:text="@string/home_chooseMode" />
 
                 <View
                     android:layout_width="match_parent"
@@ -86,17 +88,17 @@
 
                 <Button
                     android:id="@+id/mainButton"
+                    style="@style/buttonMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/home_main"
-                    style="@style/buttonMenu" />
+                    android:text="@string/home_main" />
 
                 <Button
                     android:id="@+id/pongButton"
+                    style="@style/buttonMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/home_pong"
-                    style="@style/buttonMenu" />
+                    android:text="@string/home_pong" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>

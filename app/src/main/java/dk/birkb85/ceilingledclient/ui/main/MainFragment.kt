@@ -13,9 +13,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.skydoves.colorpickerview.ColorPickerView
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
+import com.skydoves.colorpickerview.preference.ColorPickerPreferenceManager
 import dk.birkb85.ceilingledclient.R
 import dk.birkb85.ceilingledclient.models.Global
 import dk.birkb85.ceilingledclient.models.TCPConnection
+import kotlinx.android.synthetic.main.main_fragment.*
 
 
 class MainFragment : Fragment() {
@@ -77,8 +79,8 @@ class MainFragment : Fragment() {
         Global.tcpConnection.unbindMessageReceivedListener()
 
         viewModel.mMainModesDialogIsShowing = false
-        viewModel.mMainModesDialog.let {
-            if (it != null && it.isShowing) {
+        viewModel.mMainModesDialog?.let {
+            if (it.isShowing) {
                 viewModel.mMainModesDialogIsShowing = true
                 viewModel.mMainModesDialog?.dismiss()
             }

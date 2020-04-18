@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".ui.main.MainFragment"
     android:clipChildren="false"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    tools:context=".ui.main.MainFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -142,9 +142,9 @@
 
                 <Button
                     android:id="@+id/modeButton"
+                    style="@style/buttonMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/buttonMenu"
                     android:text="@string/main_chooseMode" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
