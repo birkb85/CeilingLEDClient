@@ -265,18 +265,24 @@ class MainFragment : Fragment() {
                 viewModel.mColorTimeLast = systemTimeCurrent
                 val color =
                     (envelope.argb[1].shl(16) + envelope.argb[2].shl(8) + envelope.argb[3]).toString()
-                Global.tcpConnection.sendMessage(
-                    Global.DATA_MAIN + ":" +
-                            Global.DATA_MAIN_COLOR + ":" +
-                            color + ";"
-                )
+                if (color != "0")
+                    Global.tcpConnection.sendMessage(
+                        Global.DATA_MAIN + ":" +
+                                Global.DATA_MAIN_COLOR + ":" +
+                                color + ";"
+                    )
+
+//                if (envelope.argb[0] != 255)
+//                    Log.d("DEBUG", "envelope.argb[0] != 255: ${envelope.argb[0]}")
+
+//                if (color == "0")
+//                    Log.d("DEBUG", "color == \"0\": $color, argb[0]: ${envelope.argb[0]}")
 
 //                var text = "color argb: "
 //                for (i in envelope.argb) {
 //                    text += "$i, "
 //                }
 //                Log.d("DEBUG", text)
-//                mColorPickerView?.setBackgroundColor(envelope.color)
             }
         }
     }
