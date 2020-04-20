@@ -52,20 +52,20 @@ class MainFragment : Fragment() {
         mColorPickerCardView = activity?.findViewById(R.id.colorPickerCardView)
         mColorPickerView = activity?.findViewById(R.id.colorPickerView)
 
-        selectMode()
-
         mLoopIntervalSeekBar?.max = 179
         mLoopIntervalSeekBar?.setOnSeekBarChangeListener(loopIntervalSeekBarOnSeekBarChangeListener)
 
         mStripClearOffButton?.setOnClickListener(stripClearOffButtonOnClickListener)
         mStripClearOnButton?.setOnClickListener(stripClearOnButtonOnClickListener)
 
-        mColorPickerView?.colorListener = colorEnvelopeListener
-
         mainModesDialogInit()
         mModeButton?.setOnClickListener(modeButtonOnClickListener)
 
+        mColorPickerView?.colorListener = colorEnvelopeListener
+
         mCompass = Compass(context)
+
+        selectMode()
     }
 
     override fun onResume() {
@@ -73,8 +73,6 @@ class MainFragment : Fragment() {
         Global.tcpConnection.bindMessageReceivedListener(messageReceivedListener)
 
         if (viewModel.mMainModesDialogIsShowing) viewModel.mMainModesDialog?.show()
-
-        mCompass.onResume(compassUpdateListener)
     }
 
     override fun onPause() {
@@ -207,30 +205,37 @@ class MainFragment : Fragment() {
             "" -> {
                 mModeButton?.text = getString(R.string.main_chooseMode)
                 mColorPickerCardView?.visibility = View.GONE
+                mCompass.onPause()
             }
             Global.MODE_MAIN_BLINK -> {
                 mModeButton?.text = getString(R.string.dialogMainModes_blink)
                 mColorPickerCardView?.visibility = View.VISIBLE
+                mCompass.onPause()
             }
             Global.MODE_MAIN_WIPE -> {
                 mModeButton?.text = getString(R.string.dialogMainModes_wipe)
                 mColorPickerCardView?.visibility = View.VISIBLE
+                mCompass.onPause()
             }
             Global.MODE_MAIN_THEATER_CHASE -> {
                 mModeButton?.text = getString(R.string.dialogMainModes_theaterChase)
                 mColorPickerCardView?.visibility = View.VISIBLE
+                mCompass.onPause()
             }
             Global.MODE_MAIN_RAINBOW -> {
                 mModeButton?.text = getString(R.string.dialogMainModes_rainbow)
                 mColorPickerCardView?.visibility = View.GONE
+                mCompass.onPause()
             }
             Global.MODE_MAIN_THEATER_CHASE_RAINBOW -> {
                 mModeButton?.text = getString(R.string.dialogMainModes_theaterChaseRainbow)
                 mColorPickerCardView?.visibility = View.GONE
+                mCompass.onPause()
             }
             Global.MODE_MAIN_COMPASS -> {
                 mModeButton?.text = getString(R.string.dialogMainModes_compass)
                 mColorPickerCardView?.visibility = View.VISIBLE
+                mCompass.onResume(compassUpdateListener)
             }
         }
     }
@@ -310,42 +315,21 @@ class MainFragment : Fragment() {
         }
     }
 
-    //    private val mLedNumberArray = arrayListOf<Double>()
     private val compassUpdateListener: Compass.UpdateListener = object : Compass.UpdateListener {
         override fun onUpdate(azimuth: Float, pitch: Float, roll: Float) {
-//            Log.d(
-//                "DEBUG",
-//                "Azimuth: $azimuth, Pitch: $pitch, Roll: $roll"
-//            )
+            val systemTimeCurrent = System.currentTimeMillis()
+            if (systemTimeCurrent - viewModel.mCompassTimeInterval > viewModel.mCompassTimeLast) {
+                viewModel.mCompassTimeLast = systemTimeCurrent
 
-            if (viewModel.mSelectedMode == Global.MODE_MAIN_COMPASS) {
-//            val ledNumber = ((2 * Math.PI) - (azimuth + Math.PI)) / ((2 * Math.PI) / 592)
-//            mLedNumberArray.add(ledNumber)
-//            while (mLedNumberArray.size > 10) mLedNumberArray.removeAt(0)
+                val ledNumber =
+                    (((2 * Math.PI) - (azimuth + Math.PI)) / ((2 * Math.PI) / 592)).toInt()
+                        .toString()
 
-                val systemTimeCurrent = System.currentTimeMillis()
-                if (systemTimeCurrent - viewModel.mCompassTimeInterval > viewModel.mCompassTimeLast) {
-                    viewModel.mCompassTimeLast = systemTimeCurrent
-
-                    val ledNumber =
-                        (((2 * Math.PI) - (azimuth + Math.PI)) / ((2 * Math.PI) / 592)).toInt()
-                            .toString()
-
-//                val ledNumberAverage = mLedNumberArray.average().toInt().toString()
-
-//                activity?.runOnUiThread {
-////                    mCompassTextView?.text =
-////                        "LedNumber: $ledNumberAverage, Size: ${mLedNumberArray.size}"
-//                    mCompassTextView?.text =
-//                        "LedNumber: $ledNumber"
-//                }
-
-                    Global.tcpConnection.sendMessage(
-                        Global.DATA_MAIN + ":" +
-                                Global.DATA_MAIN_X + ":" +
-                                ledNumber + ";"
-                    )
-                }
+                Global.tcpConnection.sendMessage(
+                    Global.DATA_MAIN + ":" +
+                            Global.DATA_MAIN_X + ":" +
+                            ledNumber + ";"
+                )
             }
         }
     }
