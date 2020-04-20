@@ -87,6 +87,7 @@
     <string name="dialogMainModes_theaterChase">Theater Chase</string>
     <string name="dialogMainModes_rainbow">Rainbow</string>
     <string name="dialogMainModes_theaterChaseRainbow">Theater Chase Rainbow</string>
+    <string name="dialogMainModes_compass">Compass</string>
 
     <!-- Pong Activity -->
     <string name="pong_player1">Player 1</string>

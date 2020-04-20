@@ -2,7 +2,6 @@ package dk.birkb85.ceilingledclient.ui.main
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.skydoves.colorpickerview.ColorPickerView
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
-import com.skydoves.colorpickerview.preference.ColorPickerPreferenceManager
 import dk.birkb85.ceilingledclient.R
+import dk.birkb85.ceilingledclient.models.Compass
 import dk.birkb85.ceilingledclient.models.Global
 import dk.birkb85.ceilingledclient.models.TCPConnection
-import kotlinx.android.synthetic.main.main_fragment.*
-
 
 class MainFragment : Fragment() {
     private var mLoopIntervalSeekBar: SeekBar? = null
@@ -33,6 +30,8 @@ class MainFragment : Fragment() {
     }
 
     private lateinit var viewModel: MainViewModel
+
+    private lateinit var mCompass: Compass
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,6 +64,8 @@ class MainFragment : Fragment() {
 
         mainModesDialogInit()
         mModeButton?.setOnClickListener(modeButtonOnClickListener)
+
+        mCompass = Compass(context)
     }
 
     override fun onResume() {
@@ -72,6 +73,8 @@ class MainFragment : Fragment() {
         Global.tcpConnection.bindMessageReceivedListener(messageReceivedListener)
 
         if (viewModel.mMainModesDialogIsShowing) viewModel.mMainModesDialog?.show()
+
+        mCompass.onResume(compassUpdateListener)
     }
 
     override fun onPause() {
@@ -85,6 +88,8 @@ class MainFragment : Fragment() {
                 viewModel.mMainModesDialog?.dismiss()
             }
         }
+
+        mCompass.onPause()
     }
 
     private val messageReceivedListener: TCPConnection.MessageReceivedListener =
@@ -116,6 +121,7 @@ class MainFragment : Fragment() {
         val rainbowButton: Button? = inflaterView?.findViewById(R.id.rainbowButton)
         val theaterChaseRainbowButton: Button? =
             inflaterView?.findViewById(R.id.theaterChaseRainbowButton)
+        val compassButton: Button? = inflaterView?.findViewById(R.id.compassButton)
 
         blinkButton?.setOnClickListener {
             viewModel.mMainModesDialog?.dismiss()
@@ -181,6 +187,19 @@ class MainFragment : Fragment() {
             viewModel.mSelectedMode = Global.MODE_MAIN_THEATER_CHASE_RAINBOW
             selectMode()
         }
+
+        compassButton?.setOnClickListener {
+            viewModel.mMainModesDialog?.dismiss()
+
+            Global.tcpConnection.sendMessage(
+                Global.DATA_MAIN + ":" +
+                        Global.DATA_MAIN_SET_MODE + ":" +
+                        Global.MODE_MAIN_COMPASS + ";"
+            )
+
+            viewModel.mSelectedMode = Global.MODE_MAIN_COMPASS
+            selectMode()
+        }
     }
 
     private fun selectMode() {
@@ -208,6 +227,10 @@ class MainFragment : Fragment() {
             Global.MODE_MAIN_THEATER_CHASE_RAINBOW -> {
                 mModeButton?.text = getString(R.string.dialogMainModes_theaterChaseRainbow)
                 mColorPickerCardView?.visibility = View.GONE
+            }
+            Global.MODE_MAIN_COMPASS -> {
+                mModeButton?.text = getString(R.string.dialogMainModes_compass)
+                mColorPickerCardView?.visibility = View.VISIBLE
             }
         }
     }
@@ -283,6 +306,46 @@ class MainFragment : Fragment() {
 //                    text += "$i, "
 //                }
 //                Log.d("DEBUG", text)
+            }
+        }
+    }
+
+    //    private val mLedNumberArray = arrayListOf<Double>()
+    private val compassUpdateListener: Compass.UpdateListener = object : Compass.UpdateListener {
+        override fun onUpdate(azimuth: Float, pitch: Float, roll: Float) {
+//            Log.d(
+//                "DEBUG",
+//                "Azimuth: $azimuth, Pitch: $pitch, Roll: $roll"
+//            )
+
+            if (viewModel.mSelectedMode == Global.MODE_MAIN_COMPASS) {
+//            val ledNumber = ((2 * Math.PI) - (azimuth + Math.PI)) / ((2 * Math.PI) / 592)
+//            mLedNumberArray.add(ledNumber)
+//            while (mLedNumberArray.size > 10) mLedNumberArray.removeAt(0)
+
+                val systemTimeCurrent = System.currentTimeMillis()
+                if (systemTimeCurrent - viewModel.mCompassTimeInterval > viewModel.mCompassTimeLast) {
+                    viewModel.mCompassTimeLast = systemTimeCurrent
+
+                    val ledNumber =
+                        (((2 * Math.PI) - (azimuth + Math.PI)) / ((2 * Math.PI) / 592)).toInt()
+                            .toString()
+
+//                val ledNumberAverage = mLedNumberArray.average().toInt().toString()
+
+//                activity?.runOnUiThread {
+////                    mCompassTextView?.text =
+////                        "LedNumber: $ledNumberAverage, Size: ${mLedNumberArray.size}"
+//                    mCompassTextView?.text =
+//                        "LedNumber: $ledNumber"
+//                }
+
+                    Global.tcpConnection.sendMessage(
+                        Global.DATA_MAIN + ":" +
+                                Global.DATA_MAIN_X + ":" +
+                                ledNumber + ";"
+                    )
+                }
             }
         }
     }

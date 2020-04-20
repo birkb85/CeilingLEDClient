@@ -50,5 +50,12 @@
             android:layout_height="wrap_content"
             android:text="@string/dialogMainModes_theaterChaseRainbow"
             style="@style/buttonMenu" />
+
+        <Button
+            android:id="@+id/compassButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialogMainModes_compass"
+            style="@style/buttonMenu" />
     </LinearLayout>
 </ScrollView>

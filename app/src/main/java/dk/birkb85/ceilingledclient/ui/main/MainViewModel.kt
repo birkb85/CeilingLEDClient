@@ -14,4 +14,7 @@ class MainViewModel : ViewModel() {
 
     var mColorTimeLast: Long = 0
     var mColorTimeInterval = 25
+
+    var mCompassTimeLast: Long = 0
+    var mCompassTimeInterval = 25
 }

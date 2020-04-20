@@ -46,10 +46,12 @@ class Global : Application() {
         const val MODE_MAIN_THEATER_CHASE = "2"
         const val MODE_MAIN_RAINBOW = "3"
         const val MODE_MAIN_THEATER_CHASE_RAINBOW = "4"
+        const val MODE_MAIN_COMPASS = "5"
 
         const val DATA_MAIN_UNDEFINED = "0"
         const val DATA_MAIN_SET_MODE = "1"
         const val DATA_MAIN_COLOR = "2"
+        const val DATA_MAIN_X = "3"
 
         // Pong.h
         const val DATA_PONG_P1_PRESSED = "0"
