@@ -37,15 +37,9 @@
                     style="@style/textViewHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_default"
                     android:gravity="center_horizontal"
                     android:text="@string/main_loopInterval" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/margin_default"
-                    android:layout_marginBottom="@dimen/margin_default"
-                    android:background="@color/colorDivider" />
 
                 <SeekBar
                     android:id="@+id/loopIntervalSeekBar"
@@ -76,15 +70,9 @@
                     style="@style/textViewHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_default"
                     android:gravity="center_horizontal"
                     android:text="@string/main_stripClear" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/margin_default"
-                    android:layout_marginBottom="@dimen/margin_default"
-                    android:background="@color/colorDivider" />
 
                 <LinearLayout
                     style="?android:attr/buttonBarStyle"
@@ -133,15 +121,9 @@
                     style="@style/textViewMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_default"
                     android:gravity="center_horizontal"
                     android:text="@string/main_mode" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/margin_default"
-                    android:layout_marginBottom="@dimen/margin_default"
-                    android:background="@color/colorDivider" />
 
                 <Button
                     android:id="@+id/modeButton"
@@ -174,15 +156,9 @@
                     style="@style/textViewHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_default"
                     android:gravity="center_horizontal"
                     android:text="@string/main_color" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/margin_default"
-                    android:layout_marginBottom="@dimen/margin_default"
-                    android:background="@color/colorDivider" />
 
                 <com.skydoves.colorpickerview.ColorPickerView
                     android:id="@+id/colorPickerView"

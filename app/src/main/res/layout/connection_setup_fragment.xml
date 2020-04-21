@@ -37,15 +37,9 @@
                     style="@style/textViewHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_default"
                     android:gravity="center_horizontal"
                     android:text="@string/connectionSetup_connection" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/margin_default"
-                    android:layout_marginBottom="@dimen/margin_default"
-                    android:background="@color/colorDivider" />
 
                 <TextView
                     android:id="@+id/statusTextView"
@@ -103,15 +97,9 @@
                     style="@style/textViewHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_default"
                     android:gravity="center_horizontal"
                     android:text="@string/connectionSetup_sendMessage" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/margin_default"
-                    android:layout_marginBottom="@dimen/margin_default"
-                    android:background="@color/colorDivider" />
 
                 <EditText
                     android:id="@+id/messageEditText"

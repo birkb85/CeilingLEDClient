@@ -37,15 +37,9 @@
                     style="@style/textViewHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_default"
                     android:gravity="center_horizontal"
                     android:text="@string/home_brightness" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/margin_default"
-                    android:layout_marginBottom="@dimen/margin_default"
-                    android:background="@color/colorDivider" />
 
                 <SeekBar
                     android:id="@+id/brightnessSeekBar"
@@ -76,15 +70,9 @@
                     style="@style/textViewMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_default"
                     android:gravity="center_horizontal"
                     android:text="@string/home_chooseMode" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/margin_default"
-                    android:layout_marginBottom="@dimen/margin_default"
-                    android:background="@color/colorDivider" />
 
                 <Button
                     android:id="@+id/mainButton"

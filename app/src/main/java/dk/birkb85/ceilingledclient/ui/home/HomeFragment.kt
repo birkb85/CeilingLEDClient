@@ -2,10 +2,12 @@ package dk.birkb85.ceilingledclient.ui.home
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -74,6 +76,15 @@ class HomeFragment : Fragment() {
         pongDialogInit()
         mMainButton?.setOnClickListener(mainButtonOnClickListener)
         mPongButton?.setOnClickListener(pongButtonOnClickListener)
+//        mPongButton?.setBackgroundResource(R.drawable.blink_animation)
+//        (mPongButton?.background as AnimationDrawable).start()
+
+//        lateinit var rocketAnimation: AnimationDrawable
+//        val rocketImage = activity?.findViewById<ImageView>(R.id.rocket_image)?.apply {
+//            setBackgroundResource(R.drawable.blink_animation)
+//            rocketAnimation = background as AnimationDrawable
+//        }
+//        rocketImage?.setOnClickListener { rocketAnimation.start() }
     }
 
     override fun onResume() {
