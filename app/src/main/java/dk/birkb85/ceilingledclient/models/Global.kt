@@ -29,16 +29,17 @@ class Global : Application() {
         const val MODE_BOOTING = "0"
         const val MODE_MAIN = "1"
         const val MODE_PONG = "2"
+        const val MODE_FIREWORKS = "3"
 
-        const val DATA_UNDEFINED = "0"
-        const val DATA_HEART_BEAT = "1"
-        const val DATA_MESSAGE = "2"
-        const val DATA_SET_BRIGHTNESS = "3"
-        const val DATA_SET_LOOP_INTERVAL = "4"
-        const val DATA_SET_STRIP_CLEAR = "5"
-        const val DATA_SET_MODE = "6"
-        const val DATA_MAIN = "7"
-        const val DATA_PONG = "8"
+        const val DATA_HEART_BEAT = "0"
+        const val DATA_MESSAGE = "1"
+        const val DATA_SET_BRIGHTNESS = "2"
+        const val DATA_SET_LOOP_INTERVAL = "3"
+        const val DATA_SET_STRIP_CLEAR = "4"
+        const val DATA_SET_MODE = "5"
+        const val DATA_MAIN = "6"
+        const val DATA_PONG = "7"
+        const val DATA_FIREWORKS = "8"
 
         // Main.h
         const val MODE_MAIN_BLINK = "0"
@@ -48,16 +49,18 @@ class Global : Application() {
         const val MODE_MAIN_THEATER_CHASE_RAINBOW = "4"
         const val MODE_MAIN_COMPASS = "5"
 
-        const val DATA_MAIN_UNDEFINED = "0"
-        const val DATA_MAIN_SET_MODE = "1"
-        const val DATA_MAIN_COLOR = "2"
-        const val DATA_MAIN_X = "3"
+        const val DATA_MAIN_SET_MODE = "0"
+        const val DATA_MAIN_COLOR = "1"
+        const val DATA_MAIN_X = "2"
 
         // Pong.h
         const val DATA_PONG_P1_PRESSED = "0"
         const val DATA_PONG_P1_RELEASED = "1"
         const val DATA_PONG_P2_PRESSED = "2"
         const val DATA_PONG_P2_RELEASED = "3"
+
+        // Pong.h
+//        const val DATA_FIREWORKS_UNDEFINED = "0"
     }
 
     /**
